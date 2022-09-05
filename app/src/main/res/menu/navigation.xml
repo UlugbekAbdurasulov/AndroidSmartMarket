@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigation_home"
         android:icon="@drawable/home_buttom"
         android:title="Home"/>
     <item
         android:icon="@drawable/widgets_home"
-        android:id="@+id/widgets_home"
+        android:id="@+id/navigation_search"
         android:title="kategori"/>
     <item
-        android:id="@+id/shoping_card_home"
+        android:id="@+id/navigation_basket"
         android:icon="@drawable/shopping_cart_home"
         android:title="glavniy"/>
     <item
-        android:id="@+id/person_outline_home"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/person_outline_home"
         android:title="accaunt"/>
 </menu>

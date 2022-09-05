@@ -13,21 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSmartMarket"
         tools:targetApi="31">
-        <activity
-            android:name=".fragments.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.PersonActivity"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.ShopingCartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.WidgetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.HomeActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
