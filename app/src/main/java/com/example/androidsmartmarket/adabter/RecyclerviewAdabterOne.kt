@@ -10,7 +10,7 @@ import com.example.androidsmartmarket.fragments.HomeActivity
 import com.example.androidsmartmarket.model.Post
 import com.google.android.material.imageview.ShapeableImageView
 
-class RecyclerviewAdabterOne(var items:ArrayList<Post>) {
+open class RecyclerviewAdabterOne(var items:ArrayList<Post>) {
 
 
     fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
@@ -23,8 +23,8 @@ class RecyclerviewAdabterOne(var items:ArrayList<Post>) {
             val tv_product_name_adabter1  = holder.tv_product_name_adabter1
             val btn_productAdabter1  = holder.btn_productAdabter1
 
-            acsiya_number_adabter1.setText(post.title)
-            tv_product_money_adabter1.setText(post.body.toUpperCase())
+            acsiya_number_adabter1.setText(post.old_price)
+            tv_product_money_adabter1.setText(post.price)
             tv_product_name_adabter1.setText(post.name)
 
             linearLayout.setOnClickListener{
@@ -40,7 +40,7 @@ class RecyclerviewAdabterOne(var items:ArrayList<Post>) {
     }
 
 
-    inner class PosterViewHolder(var view:View) : RecyclerView.ViewHolder(view){
+    inner class PosterViewHolder( view:View) : RecyclerView.ViewHolder(view){
         var linearLayout : LinearLayout
         var action_imageRecyclerview_adabter1 : ShapeableImageView
         var acsiya_number_adabter1 : TextView

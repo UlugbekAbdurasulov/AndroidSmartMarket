@@ -2,7 +2,6 @@ package com.example.androidsmartmarket.activity
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.hardware.camera2.params.ColorSpaceTransform
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

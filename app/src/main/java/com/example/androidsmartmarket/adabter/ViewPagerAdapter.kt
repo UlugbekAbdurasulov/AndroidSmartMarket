@@ -18,9 +18,13 @@ class ViewPagerAdapter(manager: FragmentManager?): FragmentPagerAdapter(manager!
     override fun getCount(): Int {
         return mFragmentList.size
     }
-    fun addFragment(fragment: HomeActivity){
+    fun addFragment(fragment: SearchActivity){
         mFragmentList.add(fragment)
     }
+}
+
+private fun <E> MutableList<E>.add(element: SearchActivity) {
+
 }
 
 private fun <E> MutableList<E>.add(element: HomeActivity) {

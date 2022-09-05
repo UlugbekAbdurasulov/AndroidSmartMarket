@@ -7,13 +7,15 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.androidsmartmarket.R
+import com.example.androidsmartmarket.adabter.RecyclerviewAdabterOne
 import com.example.androidsmartmarket.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : RecyclerviewAdabterOne(ArrayList()){
     private lateinit var homeActivity: ActivityHomeBinding
 
-    override fun onCreateView(
+    fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?):
             View {
