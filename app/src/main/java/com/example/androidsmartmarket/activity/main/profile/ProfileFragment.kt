@@ -15,6 +15,7 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
+
     private fun initViews() {
 
     }
