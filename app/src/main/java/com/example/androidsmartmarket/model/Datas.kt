@@ -1,5 +1,7 @@
 package com.example.androidsmartmarket.model
 
+import java.io.Serializable
+
 
 data class Welcomes (
     val error: Any? = null,
@@ -13,7 +15,7 @@ data class Welcomes (
 data class Datas (
     val id: Long,
     val name: String,
-    val categoryID: Long,
+    val category_id: Long,
     val unitID: Long,
     val unit: String,
     val makeName: String,
@@ -48,9 +50,9 @@ data class Delivery (
 data class Photo (
     val id: String,
     val url: String,
-    val isMain: Boolean,
-    val productID: Long
-)
+    val is_main: Boolean,
+    val product_id: Long
+):Serializable
 
 data class Sellers (
     val id: Long,

@@ -22,7 +22,7 @@ data class Family (
     val minAmount: Long,
     val oldPrice: Long? = null,
     val photos: List<Photos>,
-    val categoryID: Long,
+    val category_id: Long,
     val price: Long,
     val orgID: Long,
     val name: String,
@@ -43,15 +43,14 @@ data class DeliveryTypesDelivery (
 
 data class Photos (
     val id: String,
-    val isMain: Boolean,
-    val url : String,
-    val productID: Long
+    val is_main: Boolean,
+    val product_id: Long
 ): Serializable
 
 data class Seller (
     val id: Long,
     val region_id: Long,
-    val districtID: Long,
+    val district_id: Long,
     val name: String,
     val address: String,
     val header_name: String,

@@ -6,6 +6,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.BaseFlowFragment
 import com.example.androidsmartmarket.databinding.FlowFragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
 class MainFlowFragment : BaseFlowFragment(

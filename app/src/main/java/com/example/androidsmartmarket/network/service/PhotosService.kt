@@ -10,7 +10,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-@JvmSuppressWildcards
 interface PhotosService {
 
     companion object {
@@ -20,15 +19,16 @@ interface PhotosService {
 
     @Headers("User-Agent: $ACCESS_KEY")
     @GET("v2/frontend/home/products")
-    fun listPhotos(): Call<Welcome>
+      fun listPhotos(): Call<Welcome>
 
     @Headers("User-Agent: $ACCESS_KEY_SECOND")
     @GET("v1/sync/frontend/catalog/product/detail")
-    fun listPhotosProduct(
-        @Query("product_id") product_id: Int,
-        @Query("lang") lang : String,
-        @Query("region_id") region_id: Int,
-        @Query("district_id") district_id: Int
+
+      fun listPhotosProduct(
+        @Query("product_id") product_id: Long,
+        @Query("lang") lang: String,
+        @Query("region_id") region_id: Long,
+        @Query("district_id") district_id: Long
 
     ): Call<Welcomes>
 }
