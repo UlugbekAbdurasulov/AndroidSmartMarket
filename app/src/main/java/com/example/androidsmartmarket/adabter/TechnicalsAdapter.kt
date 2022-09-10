@@ -14,6 +14,7 @@ import com.example.androidsmartmarket.model.*
 
 class TechnicalsAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<TechnicalsViewHolder>() {
 
+    
     private var items = mutableListOf<Datas>()
     fun setItems(items: List<Datas>){
         this.items = items.toMutableList()
