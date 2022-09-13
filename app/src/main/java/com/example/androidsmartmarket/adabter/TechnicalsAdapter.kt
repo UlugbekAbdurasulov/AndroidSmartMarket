@@ -43,4 +43,5 @@ class TechnicalsAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<Te
 
 }
 class TechnicalsViewHolder(val binding: ItemLayoutTechnicalBinding) : RecyclerView.ViewHolder(binding.root) {
+
 }

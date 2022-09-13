@@ -1,32 +1,40 @@
 package com.example.androidsmartmarket.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.androidsmartmarket.R
+import com.example.androidsmartmarket.activity.main.listener.HomeListener
+import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.databinding.ActivityMainBinding
+import com.example.androidsmartmarket.utils.ARG
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity() : AppCompatActivity() {
+    var homeListener: HomeListener? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    val homeViewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window?.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        toolbarAction()
+        apiAction()
         setupNavigation()
     }
 
-    private fun toolbarAction() {
+    private fun apiAction() {
 
     }
 

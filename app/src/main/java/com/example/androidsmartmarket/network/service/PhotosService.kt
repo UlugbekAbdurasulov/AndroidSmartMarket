@@ -5,6 +5,7 @@ package com.example.androidsmartmarket.network.service
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -19,16 +20,16 @@ interface PhotosService {
 
     @Headers("User-Agent: $ACCESS_KEY")
     @GET("v2/frontend/home/products")
-      fun listPhotos(): Call<Welcome>
+      suspend fun listPhotos(): Response<Welcome>
 
     @Headers("User-Agent: $ACCESS_KEY_SECOND")
     @GET("v1/sync/frontend/catalog/product/detail")
 
-      fun listPhotosProduct(
+      suspend fun listPhotosProduct(
         @Query("product_id") product_id: Long,
         @Query("lang") lang: String,
         @Query("region_id") region_id: Long,
         @Query("district_id") district_id: Long
 
-    ): Call<Welcomes>
+    ): Response<Welcomes>
 }

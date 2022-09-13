@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.main.home.HomeFragment
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
@@ -13,17 +15,10 @@ import com.example.androidsmartmarket.model.*
 
 class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeViewHolder>() {
 
-    private var items = mutableListOf<Welcomes>()
-    fun setItems(items: List<Welcomes>){
+    private var items = mutableListOf<Datas>()
+    fun setItems(items: List<Datas>){
         this.items = items.toMutableList()
         notifyDataSetChanged()
-    }
-
-    private var movies = mutableListOf<Datas>()
-    fun setMovieList(movies: List<Datas>) {
-        this.movies = movies.toMutableList()
-        notifyDataSetChanged()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -34,10 +29,17 @@ class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeView
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         var id : Long = 0
         val movie = items[position]
-        movie.data.photos.forEach {
-            holder.binding.userTitle.text = it.url
+        movie.photos.forEach {
+            if (it.is_main == true) {
+                holder.binding.userId.text = it.url
+                Glide
+                    .with(holder.itemView)
+                    .load(it.url)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(holder.binding.userTitle)
+            }
         }
-
 //        homeFragment.addProduct(id,"ru",movie.seller.region_id,movie.seller.district_id)
 
     }
