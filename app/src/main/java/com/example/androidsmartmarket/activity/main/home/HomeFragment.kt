@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
+import com.example.androidsmartmarket.adabter.FamilyAdapter
 import com.example.androidsmartmarket.adabter.HomeAdapter
-import com.example.androidsmartmarket.adabter.TechnicalsAdapter
+import com.example.androidsmartmarket.adabter.NoteAdapter
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
 import com.example.androidsmartmarket.model.*
 import com.example.androidsmartmarket.utils.ARG
@@ -19,11 +20,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment: Fragment(R.layout.fragment_home) {
     var adapter : HomeAdapter? = null
-    var technicalsAdapter : TechnicalsAdapter? = null
+    var familyAdapter : FamilyAdapter? = null
+    var noteAdapter : NoteAdapter? = null
     val homeViewModel: HomeViewModel by viewModels()
     var arrayList : ArrayList<Datas> = ArrayList()
-    var arrayListSec = ArrayList<Family>()
-    var arrayListThree = ArrayList<Long>()
+    var arrayList_FM : ArrayList<Datas> = ArrayList()
+    var arrayList_COMP : ArrayList<Datas> = ArrayList()
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,31 +33,42 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     }
 
     private fun initViews() {
-        binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
+        binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+        binding.rvFamily.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+        binding.rvComp.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         adapter = HomeAdapter(this)
-        technicalsAdapter = TechnicalsAdapter(this)
+        familyAdapter = FamilyAdapter(this)
+        noteAdapter = NoteAdapter(this)
         binding.rvItem.adapter = adapter
-
-        homeViewModel.allPosts.observe(requireActivity()) {
-            it!!.data.technicals.forEach {
-                it.photos.forEach {
-                    Log.d("UUUU", it.product_id.toString())
-                    homeViewModel.apiPostListM(it.product_id)
-                }
-            }
-            Log.d("Saved", homeViewModel.allPostSave.toString())
-        }
+        binding.rvFamily.adapter = familyAdapter
+        binding.rvComp.adapter = noteAdapter
         homeViewModel.apiPostList()
         homeViewModel.allPostsrter.observe(requireActivity(),{
-            Log.d("PPPPP",it!!.data.toString())
-            ARG.apiSaUrl.add(it.data)
-            arrayList.add(it.data)
+            arrayList.add(it!!.data)
+            adapter!!.setItems(arrayList)
         })
-        apiData()
+
+        homeViewModel.allPostsFamily.observe(requireActivity(),{
+            arrayList_FM.add(it!!.data)
+            familyAdapter!!.setItems(arrayList_FM)
+        })
+
+        homeViewModel.allPostsComp.observe(requireActivity(),{
+            arrayList_COMP.add(it!!.data)
+            noteAdapter!!.setItems(arrayList_COMP)
+        })
     }
 
     private fun apiData() {
         var arg : ARG = ARG
-        adapter!!.setItems(arg.apiSaUrl)
+    }
+
+    override fun onPause() {
+        Log.d("OnREst","OnPause")
+        super.onPause()
+    }
+    override fun onResume() {
+        Log.d("OnREst","OnResume")
+        super.onResume()
     }
 }

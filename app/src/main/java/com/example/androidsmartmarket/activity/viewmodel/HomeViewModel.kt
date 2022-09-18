@@ -1,62 +1,100 @@
 package com.example.androidsmartmarket.activity.viewmodel
 
-import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
-import com.example.androidsmartmarket.activity.repository.TVShowRepository
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes
 import com.example.androidsmartmarket.network.service.PhotosService
-import com.example.androidsmartmarket.utils.ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val tvShowRepository: TVShowRepository) : ViewModel() {
-    val allPosts = MutableLiveData<Welcome?>()
+class HomeViewModel @Inject constructor(private val postService: PhotosService) : ViewModel(){
+    val allPosts = MutableLiveData<Welcome>()
     val allPostsrter = MutableLiveData<Welcomes?>()
-    val allPostSave: ArrayList<Long> = ArrayList()
-    val getPosts = MutableLiveData<Welcome>()
+    val allPostsFamily = MutableLiveData<Welcomes?>()
+    val allPostsComp = MutableLiveData<Welcomes?>()
+    val id : ArrayList<Long> = ArrayList()
+    val id_Family : ArrayList<Long> = ArrayList()
+    val id_Comp : ArrayList<Long> = ArrayList()
     fun apiPostList() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = tvShowRepository.apiTVShowPopular()
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    val resp = response.body()
-                    allPosts.postValue(resp)
-
-                } else {
-
+        postService.listPhotos().enqueue(object : Callback<Welcome> {
+            override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
+                allPosts.value = response.body()
+                for (i in response.body()!!.data.technicals) {
+                    i.photos.forEach {
+                        id.add(it.product_id)
+                    }
                 }
-            }
-        }
 
+                for (i in response.body()!!.data.family) {
+                    i.photos.forEach {
+                        id_Family.add(it.product_id)
+                    }
+                }
+
+                for (i in response.body()!!.data.computers) {
+                    i.photos.forEach {
+                        id_Comp.add(it.product_id)
+                    }
+                }
+                apiGetList(id)
+                apiGetListFamily(id_Family)
+                apiGetListComp(id_Comp)
+            }
+
+            override fun onFailure(call: Call<Welcome>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
-    //
-    fun apiPostListM(arg: Long) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = tvShowRepository.apiTVShowDetails(arg)
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    val resp = response.body()
-                    allPostsrter.postValue(resp)
-
-                } else {
-
+    fun apiGetList(id: ArrayList<Long>) {
+        for (i in id) {
+            postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
+                override fun onFailure(call: Call<Welcomes>, t: Throwable) {
+                    TODO("Not yet implemented")
                 }
-            }
+
+                override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {
+                    allPostsrter.value = response.body()
+                }
+
+            })
+        }
+    }
+
+    fun apiGetListFamily(id_Family: ArrayList<Long>) {
+        for (i in id_Family) {
+            postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
+                override fun onFailure(call: Call<Welcomes>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {
+                    allPostsFamily.value = response.body()
+                }
+
+            })
+        }
+    }
+
+    fun apiGetListComp(id_Comp: ArrayList<Long>) {
+        for (i in id_Comp) {
+            postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
+                override fun onFailure(call: Call<Welcomes>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {
+                    allPostsComp.value = response.body()
+                }
+
+            })
         }
     }
 }

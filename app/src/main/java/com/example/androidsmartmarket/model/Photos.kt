@@ -13,7 +13,7 @@ data class Welcome (
 data class Data (
     val technicals: List<Family>,
     val family: List<Family>,
-    val computers: List<Any?>
+    val computers: List<Family>
 ): Serializable
 
 data class Family (

@@ -3,17 +3,21 @@ package com.example.androidsmartmarket.adabter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.main.home.HomeFragment
+import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
+import com.example.androidsmartmarket.databinding.ItemLayoutCompBinding
+import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
 import com.example.androidsmartmarket.model.*
-import java.text.DecimalFormat
-import java.text.NumberFormat
 
-class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeViewHolder>() {
+class NoteAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<CompViewHolder>() {
 
+    
     private var items = mutableListOf<Datas>()
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<Datas>){
@@ -21,12 +25,12 @@ class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeView
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemLayoutTechnicalsBinding.inflate(inflater, parent, false)
-        return HomeViewHolder(binding)
+        val binding = ItemLayoutCompBinding.inflate(inflater, parent, false)
+        return CompViewHolder(binding)
     }
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CompViewHolder, position: Int) {
         var id : Long = 0
         val movie = items[position]
         movie.photos.forEach {
@@ -52,5 +56,6 @@ class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeView
     }
 
 }
-class HomeViewHolder(val binding: ItemLayoutTechnicalsBinding) : RecyclerView.ViewHolder(binding.root) {
+class CompViewHolder(val binding: ItemLayoutCompBinding) : RecyclerView.ViewHolder(binding.root) {
+
 }

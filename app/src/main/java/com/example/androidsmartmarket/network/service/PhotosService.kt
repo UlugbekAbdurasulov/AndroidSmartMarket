@@ -20,16 +20,16 @@ interface PhotosService {
 
     @Headers("User-Agent: $ACCESS_KEY")
     @GET("v2/frontend/home/products")
-      suspend fun listPhotos(): Response<Welcome>
+    fun listPhotos(): Call<Welcome>
 
     @Headers("User-Agent: $ACCESS_KEY_SECOND")
     @GET("v1/sync/frontend/catalog/product/detail")
 
-      suspend fun listPhotosProduct(
+       fun listPhotosProduct(
         @Query("product_id") product_id: Long,
         @Query("lang") lang: String,
         @Query("region_id") region_id: Long,
         @Query("district_id") district_id: Long
 
-    ): Response<Welcomes>
+    ): Call<Welcomes>
 }
