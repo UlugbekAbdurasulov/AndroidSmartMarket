@@ -42,7 +42,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.rvItem.adapter = adapter
         binding.rvFamily.adapter = familyAdapter
         binding.rvComp.adapter = noteAdapter
+
         homeViewModel.apiPostList()
+
         homeViewModel.allPostsrter.observe(requireActivity(),{
             arrayList.add(it!!.data)
             adapter!!.setItems(arrayList)
@@ -56,6 +58,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         homeViewModel.allPostsComp.observe(requireActivity(),{
             arrayList_COMP.add(it!!.data)
             noteAdapter!!.setItems(arrayList_COMP)
+            Log.d("Comp",arrayList_COMP.toString())
         })
     }
 
@@ -65,10 +68,13 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
     override fun onPause() {
         Log.d("OnREst","OnPause")
+
+        Log.d("OnREst",homeViewModel.id_Comp.toString())
         super.onPause()
     }
     override fun onResume() {
         Log.d("OnREst","OnResume")
+        Log.d("OnREst",homeViewModel.id_Comp.toString())
         super.onResume()
     }
 }

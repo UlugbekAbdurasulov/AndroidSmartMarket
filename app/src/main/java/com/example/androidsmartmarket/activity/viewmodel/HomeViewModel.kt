@@ -2,6 +2,7 @@ package com.example.androidsmartmarket.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.androidsmartmarket.model.Technicals
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes
 import com.example.androidsmartmarket.network.service.PhotosService
@@ -20,26 +21,42 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
     val id : ArrayList<Long> = ArrayList()
     val id_Family : ArrayList<Long> = ArrayList()
     val id_Comp : ArrayList<Long> = ArrayList()
+    var technicals : Technicals = Technicals()
     fun apiPostList() {
         postService.listPhotos().enqueue(object : Callback<Welcome> {
             override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
+
                 allPosts.value = response.body()
                 for (i in response.body()!!.data.technicals) {
-                    i.photos.forEach {
-                        id.add(it.product_id)
+                    for (i in i.photos) {
+                        id.add(i.product_id)
+                        break
                     }
+//                    i.photos.forEach {
+//                        technicals.productId = it.product_id
+//                        technicals.districtId = i.seller.district_id
+//                        technicals.regionId = i.seller.region_id
+//                    }
                 }
 
                 for (i in response.body()!!.data.family) {
-                    i.photos.forEach {
-                        id_Family.add(it.product_id)
+                    for (i in i.photos) {
+                        id_Family.add(i.product_id)
+                        break
                     }
+//                    i.photos.forEach {
+//                        id_Family.add(it.product_id)
+//                    }
                 }
 
                 for (i in response.body()!!.data.computers) {
-                    i.photos.forEach {
-                        id_Comp.add(it.product_id)
+                    for (i in i.photos) {
+                        id_Comp.add(i.product_id)
+                        break
                     }
+//                    i.photos.forEach {
+//
+//                    }
                 }
                 apiGetList(id)
                 apiGetListFamily(id_Family)
