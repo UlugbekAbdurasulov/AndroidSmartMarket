@@ -33,16 +33,26 @@ class NoteAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<CompView
     override fun onBindViewHolder(holder: CompViewHolder, position: Int) {
         var id : Long = 0
         val movie = items[position]
-        movie.photos.forEach {
-            if (it.is_main == true) {
+        for (i in movie.photos) {
+            if (i.is_main == true) {
                 Glide
                     .with(holder.itemView)
-                    .load(it.url)
+                    .load(i.url)
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.binding.userTitle)
             }
         }
+//        movie.photos.forEach {
+//            if (it.is_main == true) {
+//                Glide
+//                    .with(holder.itemView)
+//                    .load(it.url)
+//                    .placeholder(R.drawable.ic_launcher_background)
+//                    .error(R.drawable.ic_launcher_background)
+//                    .into(holder.binding.userTitle)
+//            }
+//        }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name

@@ -2,6 +2,7 @@ package com.example.androidsmartmarket.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.androidsmartmarket.activity.main.home.HomeFragment
 import com.example.androidsmartmarket.model.Technicals
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes
@@ -15,21 +16,22 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val postService: PhotosService) : ViewModel(){
     val allPosts = MutableLiveData<Welcome>()
-    val allPostsrter = MutableLiveData<Welcomes?>()
+    val allPostsrter = MutableLiveData<Welcomes>()
     val allPostsFamily = MutableLiveData<Welcomes?>()
     val allPostsComp = MutableLiveData<Welcomes?>()
     val id : ArrayList<Long> = ArrayList()
     val id_Family : ArrayList<Long> = ArrayList()
     val id_Comp : ArrayList<Long> = ArrayList()
+    var getHashSet : HashSet<Long> = HashSet()
     var technicals : Technicals = Technicals()
     fun apiPostList() {
+        var homeFragment: HomeFragment = HomeFragment()
         postService.listPhotos().enqueue(object : Callback<Welcome> {
             override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
-
-                allPosts.value = response.body()
                 for (i in response.body()!!.data.technicals) {
                     for (i in i.photos) {
                         id.add(i.product_id)
+                        getHashSet.add(i.product_id)
                         break
                     }
 //                    i.photos.forEach {
@@ -58,7 +60,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
 //
 //                    }
                 }
-                apiGetList(id)
+                apiGetList(getHashSet)
                 apiGetListFamily(id_Family)
                 apiGetListComp(id_Comp)
             }
@@ -70,7 +72,8 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
         })
     }
 
-    fun apiGetList(id: ArrayList<Long>) {
+
+    fun apiGetList(id: HashSet<Long>) {
         for (i in id) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {

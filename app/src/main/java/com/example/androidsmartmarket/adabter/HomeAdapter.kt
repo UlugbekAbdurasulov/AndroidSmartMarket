@@ -12,7 +12,7 @@ import com.example.androidsmartmarket.model.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeViewHolder>() {
+class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter<HomeViewHolder>() {
 
     private var items = mutableListOf<Datas>()
     @SuppressLint("NotifyDataSetChanged")
@@ -29,16 +29,30 @@ class HomeAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<HomeView
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         var id : Long = 0
         val movie = items[position]
-        movie.photos.forEach {
-            if (it.is_main == true) {
+        for (i in movie.photos) {
+            if (i.is_main == true) {
                 Glide
                     .with(holder.itemView)
-                    .load(it.url)
+                    .load(i.url)
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.binding.userTitle)
+                break
+            }
+            holder.binding.userTitle.setOnClickListener {
+                clickListener(movie)
             }
         }
+//        movie.photos.forEach {
+//            if (it.is_main == true) {
+//                Glide
+//                    .with(holder.itemView)
+//                    .load(it.url)
+//                    .placeholder(R.drawable.ic_launcher_background)
+//                    .error(R.drawable.ic_launcher_background)
+//                    .into(holder.binding.userTitle)
+//            }
+//        }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name

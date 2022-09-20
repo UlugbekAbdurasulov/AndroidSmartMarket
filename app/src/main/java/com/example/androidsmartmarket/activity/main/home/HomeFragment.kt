@@ -1,24 +1,32 @@
 package com.example.androidsmartmarket.activity.main.home
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.ActivityNavigatorExtras
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
+import com.example.androidsmartmarket.activity.DetailsActivity
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.adabter.FamilyAdapter
 import com.example.androidsmartmarket.adabter.HomeAdapter
 import com.example.androidsmartmarket.adabter.NoteAdapter
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
 import com.example.androidsmartmarket.model.*
-import com.example.androidsmartmarket.utils.ARG
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment: Fragment(R.layout.fragment_home) {
+
     var adapter : HomeAdapter? = null
     var familyAdapter : FamilyAdapter? = null
     var noteAdapter : NoteAdapter? = null
@@ -26,17 +34,21 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var arrayList : ArrayList<Datas> = ArrayList()
     var arrayList_FM : ArrayList<Datas> = ArrayList()
     var arrayList_COMP : ArrayList<Datas> = ArrayList()
+    var booleans = true
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     private fun initViews() {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvFamily.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvComp.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        adapter = HomeAdapter(this)
+        adapter = HomeAdapter({ seletedItem: Datas ->listItemClicked(seletedItem)})
         familyAdapter = FamilyAdapter(this)
         noteAdapter = NoteAdapter(this)
         binding.rvItem.adapter = adapter
@@ -46,8 +58,12 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         homeViewModel.apiPostList()
 
         homeViewModel.allPostsrter.observe(requireActivity(),{
-            arrayList.add(it!!.data)
-            adapter!!.setItems(arrayList)
+            arrayList.add(it.data)
+            if (booleans == true) {
+                adapter!!.setItems(arrayList)
+            }else {
+
+            }
         })
 
         homeViewModel.allPostsFamily.observe(requireActivity(),{
@@ -60,21 +76,37 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             noteAdapter!!.setItems(arrayList_COMP)
             Log.d("Comp",arrayList_COMP.toString())
         })
+        !booleans
     }
 
-    private fun apiData() {
-        var arg : ARG = ARG
+    private fun listItemClicked(seletedItem: Datas) {
+//        val intent = Intent(requireActivity(), DetailsActivity::class.java)
+//        intent.putExtra("datas",seletedItem)
+//        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
+//        startActivity(intent, options.toBundle())
+//        val extras = FragmentNavigatorExtras(
+//            requireView() to seletedItem
+//        )
+
+        val args = Bundle()
+        args.putSerializable("id", seletedItem)
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
+        val extras = ActivityNavigatorExtras(options)
+        findNavController().navigate(R.id.action_HomeFragment,args)
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onPause() {
-        Log.d("OnREst","OnPause")
-
-        Log.d("OnREst",homeViewModel.id_Comp.toString())
         super.onPause()
     }
+
+    override fun onStart() {
+        super.onStart()
+    }
     override fun onResume() {
-        Log.d("OnREst","OnResume")
-        Log.d("OnREst",homeViewModel.id_Comp.toString())
+//        Log.d("OnREst",homeViewModel.id_Comp.toString())
         super.onResume()
     }
 }
