@@ -31,6 +31,8 @@ class DetailsActivity : AppCompatActivity() {
             detailsAdapter!!.setItems(member.photos)
             val snapHelper: SnapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(tvShows)
+
+            tvPrice.text = "${member.price} UZS"
         }
     }
 }

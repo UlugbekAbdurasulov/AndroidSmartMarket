@@ -8,10 +8,6 @@ import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.ActivityNavigatorExtras
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
@@ -38,19 +34,19 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        this.initViews(view)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    private fun initViews() {
+    private fun initViews(view: View) {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvFamily.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvComp.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        adapter = HomeAdapter({ seletedItem: Datas ->listItemClicked(seletedItem)})
-        familyAdapter = FamilyAdapter(this)
-        noteAdapter = NoteAdapter(this)
+        adapter = HomeAdapter({ seletedItem: Datas -> listItemClicked(seletedItem,view)})
+        familyAdapter = FamilyAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
+        noteAdapter = NoteAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
         binding.rvItem.adapter = adapter
         binding.rvFamily.adapter = familyAdapter
         binding.rvComp.adapter = noteAdapter
@@ -79,21 +75,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         !booleans
     }
 
-    private fun listItemClicked(seletedItem: Datas) {
-//        val intent = Intent(requireActivity(), DetailsActivity::class.java)
-//        intent.putExtra("datas",seletedItem)
-//        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
-//        startActivity(intent, options.toBundle())
-//        val extras = FragmentNavigatorExtras(
-//            requireView() to seletedItem
-//        )
-
-        val args = Bundle()
-        args.putSerializable("id", seletedItem)
-
+    private fun listItemClicked(seletedItem: Datas, view: View) {
+        var intent = Intent(requireContext(),DetailsActivity::class.java)
+        intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
-        val extras = ActivityNavigatorExtras(options)
-        findNavController().navigate(R.id.action_HomeFragment,args)
+        startActivity(intent,options.toBundle())
     }
 
 

@@ -9,6 +9,7 @@ import com.example.androidsmartmarket.databinding.FragmentBasketBinding
 import com.example.androidsmartmarket.databinding.FragmentCategoryBinding
 import com.example.androidsmartmarket.databinding.FragmentDetailsBinding
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
+import com.example.androidsmartmarket.model.Datas
 
 
 class DetailsFragment: Fragment(R.layout.fragment_details) {

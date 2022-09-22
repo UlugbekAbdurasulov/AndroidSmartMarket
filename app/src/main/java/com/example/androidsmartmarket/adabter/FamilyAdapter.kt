@@ -14,7 +14,7 @@ import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
 import com.example.androidsmartmarket.model.*
 
-class FamilyAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<TechnicalsViewHolder>() {
+class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<TechnicalsViewHolder>() {
 
     
     private var items = mutableListOf<Datas>()
@@ -41,6 +41,9 @@ class FamilyAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<Techni
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.binding.userTitle)
             }
+        }
+        holder.binding.userTitle.setOnClickListener {
+            clickListener(movie)
         }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s

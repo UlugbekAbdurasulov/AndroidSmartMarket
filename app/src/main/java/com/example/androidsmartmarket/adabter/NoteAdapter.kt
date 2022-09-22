@@ -15,7 +15,7 @@ import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
 import com.example.androidsmartmarket.model.*
 
-class NoteAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<CompViewHolder>() {
+class NoteAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<CompViewHolder>() {
 
     
     private var items = mutableListOf<Datas>()
@@ -43,6 +43,7 @@ class NoteAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<CompView
                     .into(holder.binding.userTitle)
             }
         }
+
 //        movie.photos.forEach {
 //            if (it.is_main == true) {
 //                Glide
@@ -53,6 +54,9 @@ class NoteAdapter(var homeFragment: HomeFragment): RecyclerView.Adapter<CompView
 //                    .into(holder.binding.userTitle)
 //            }
 //        }
+        holder.binding.userTitle.setOnClickListener {
+            clickListener(movie)
+        }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name
