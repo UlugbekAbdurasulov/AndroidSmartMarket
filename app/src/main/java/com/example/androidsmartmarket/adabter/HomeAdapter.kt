@@ -34,8 +34,6 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
                 Glide
                     .with(holder.itemView)
                     .load(i.url)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_background)
                     .into(holder.binding.userTitle)
                 break
             }
@@ -43,16 +41,6 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
                 clickListener(movie)
             }
         }
-//        movie.photos.forEach {
-//            if (it.is_main == true) {
-//                Glide
-//                    .with(holder.itemView)
-//                    .load(it.url)
-//                    .placeholder(R.drawable.ic_launcher_background)
-//                    .error(R.drawable.ic_launcher_background)
-//                    .into(holder.binding.userTitle)
-//            }
-//        }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name

@@ -22,7 +22,7 @@ data class Datas (
     val countryName: String,
     val price: Long,
     val amount: Long,
-    val minAmount: Long,
+    val min_amount: Long,
     val expirationLife: String,
     val freeServiceLife: String,
     val ayear: Long,

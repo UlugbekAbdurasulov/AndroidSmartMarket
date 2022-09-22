@@ -3,15 +3,19 @@ package com.example.androidsmartmarket.activity.main.home
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.DetailsActivity
+import com.example.androidsmartmarket.activity.SearchActivity
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.adabter.FamilyAdapter
 import com.example.androidsmartmarket.adabter.HomeAdapter
@@ -73,6 +77,13 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             Log.d("Comp",arrayList_COMP.toString())
         })
         !booleans
+
+        binding.apply {
+            autoCompleteTextview2.setOnClickListener {
+                var intent : Intent = Intent(requireContext(), SearchActivity::class.java)
+                        startActivity(intent)
+            }
+        }
     }
 
     private fun listItemClicked(seletedItem: Datas, view: View) {
@@ -80,7 +91,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
-
     }
 
 

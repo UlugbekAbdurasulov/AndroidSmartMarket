@@ -1,5 +1,6 @@
 package com.example.androidsmartmarket.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,7 @@ class DetailsActivity : AppCompatActivity() {
         initViews()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initViews() {
         binding.tvShows.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
         detailsAdapter = DetailsAdapter()
@@ -38,7 +40,7 @@ class DetailsActivity : AppCompatActivity() {
             tvNames.text = member.name
             tvTechnicalParameters.text = member.technicalParameters
             tvUnit.text = member.unit
-            tvUnitId.text = member.unit
+            tvUnitId.text = member.min_amount.toString()
             tvExpirationLife.text = member.expirationLife
             tvFreeServiceLife.text = member.freeServiceLife
             tvAyear.text = member.ayear.toString()

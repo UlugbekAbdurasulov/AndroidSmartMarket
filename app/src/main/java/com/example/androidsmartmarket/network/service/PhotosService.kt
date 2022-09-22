@@ -32,4 +32,10 @@ public interface PhotosService {
         @Query("district_id") district_id: Long
 
     ): Call<Welcomes>
+
+       @Headers("User-Agent: $ACCESS_KEY_SECOND")
+       @GET("v1/search")
+       fun searchProducts(
+           @Query("q") q : String
+       ) : Call<Welcome>
 }

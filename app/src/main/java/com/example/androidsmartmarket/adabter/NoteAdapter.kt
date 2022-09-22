@@ -38,22 +38,10 @@ class NoteAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Comp
                 Glide
                     .with(holder.itemView)
                     .load(i.url)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_background)
                     .into(holder.binding.userTitle)
             }
         }
 
-//        movie.photos.forEach {
-//            if (it.is_main == true) {
-//                Glide
-//                    .with(holder.itemView)
-//                    .load(it.url)
-//                    .placeholder(R.drawable.ic_launcher_background)
-//                    .error(R.drawable.ic_launcher_background)
-//                    .into(holder.binding.userTitle)
-//            }
-//        }
         holder.binding.userTitle.setOnClickListener {
             clickListener(movie)
         }

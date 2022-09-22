@@ -13,7 +13,8 @@ data class Welcome (
 data class Data (
     val technicals: List<Family>,
     val family: List<Family>,
-    val computers: List<Family>
+    val computers: List<Family>,
+    val products: List<Product>
 ): Serializable
 
 data class Family (
@@ -57,3 +58,12 @@ data class Seller (
     val mobile_phone: String? = null,
     val email: String? = null
 ): Serializable
+
+data class Product (
+    val id: Long,
+    val name: String,
+    val category_id: Long,
+    val main_photo: String,
+    val price: Long
+): Serializable
+

@@ -37,8 +37,6 @@ class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Te
                 Glide
                     .with(holder.itemView)
                     .load(it.url)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_background)
                     .into(holder.binding.userTitle)
             }
         }
