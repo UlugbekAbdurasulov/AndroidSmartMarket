@@ -80,8 +80,16 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
+
     }
 
+
+/*    private fun listItemClickedd(seletedItem: Datas, view: View) {
+        var intent = Intent(requireContext(),DetailsActivity::class.java)
+        intent.putExtra("datas", seletedItem)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
+        startActivity(intent,options.toBundle())
+    }*/
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onPause() {
