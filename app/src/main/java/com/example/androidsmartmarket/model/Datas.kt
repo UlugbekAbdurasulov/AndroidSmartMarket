@@ -9,6 +9,7 @@ data class Welcomes (
     val timestamp: String,
     val status: Long,
     val path: Any? = null,
+
     val data: Datas
 ):Serializable
 
