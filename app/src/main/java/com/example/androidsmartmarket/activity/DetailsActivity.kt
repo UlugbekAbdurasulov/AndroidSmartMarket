@@ -36,7 +36,7 @@ class DetailsActivity : AppCompatActivity() {
             val snapHelper: SnapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(tvShows)
 
-            tvPrice.text = "${member.price} UZS"
+        //    tvPrice.text = "${member.price} UZS"
             tvNames.text = member.name
             tvTechnicalParameters.text = member.technicalParameters
             tvUnit.text = member.unit
@@ -45,7 +45,14 @@ class DetailsActivity : AppCompatActivity() {
             tvFreeServiceLife.text = member.freeServiceLife
             tvAyear.text = member.ayear.toString()
             tvMakeName.text = member.makeName
-            tvTv.text = member.seller.name
+            tvNameSeller.text = member.seller.name
+            tvAdressSeller.text = member.seller.address
+           // tvPriceT.text = "${member.price} UZS"
+
+            var s = (String.format("%,d", member.price)).replace(',', ' ')
+            binding.tvPrice.text = "${s} UZS"
+            var d = (String.format("%,d", member.price)).replace(',', ' ')
+            binding.tvPriceT.text = "${d} UZS"
 
 
           //  tvName.text = member.name
