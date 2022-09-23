@@ -38,13 +38,13 @@ class DetailsActivity : AppCompatActivity() {
 
         //    tvPrice.text = "${member.price} UZS"
             tvNames.text = member.name
-            tvTechnicalParameters.text = member.technicalParameters
+            tvTechnicalParameters.text = member.technical_parameters
             tvUnit.text = member.unit
             tvUnitId.text = member.min_amount.toString()
-            tvExpirationLife.text = member.expirationLife
-            tvFreeServiceLife.text = member.freeServiceLife
+            tvExpirationLife.text = member.expiration_life
+            tvFreeServiceLife.text = member.free_service_life
             tvAyear.text = member.ayear.toString()
-            tvMakeName.text = member.makeName
+            tvMakeName.text = member.country_name
             tvNameSeller.text = member.seller.name
             tvAdressSeller.text = member.seller.address
            // tvPriceT.text = "${member.price} UZS"
