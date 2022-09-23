@@ -14,8 +14,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:background="@color/white"
                 android:padding="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/img_location"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_baseline_location_on_24"/>
+                    <TextView
+                        android:id="@+id/get_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="17sp"
+                        android:text=""
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/set_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="изменит"
+                        android:textSize="17sp"
+                        android:gravity="right"
+                        android:textColor="@color/link"/>
+                </LinearLayout>
                 <EditText
                     android:id="@+id/autoCompleteTextview2"
                     android:layout_width="match_parent"
@@ -58,7 +88,7 @@
                         android:layout_weight=".2"
                         android:textSize="16sp"
                         android:gravity="right"
-                        android:textColor="#0591D1"
+                        android:textColor="@color/link"
                         android:text="Все"/>
                     <ImageView
                         android:layout_width="0dp"
@@ -102,7 +132,7 @@
                         android:layout_weight=".2"
                         android:textSize="16sp"
                         android:gravity="right"
-                        android:textColor="#0591D1"
+                        android:textColor="@color/link"
                         android:text="Все"/>
                     <ImageView
                         android:layout_width="0dp"
@@ -146,7 +176,7 @@
                         android:layout_weight=".2"
                         android:textSize="16sp"
                         android:gravity="right"
-                        android:textColor="#0591D1"
+                        android:textColor="@color/link"
                         android:text="Все"/>
                     <ImageView
                         android:layout_width="0dp"

@@ -3,6 +3,7 @@ package com.example.androidsmartmarket.network.service
 
 
 import com.example.androidsmartmarket.model.Welcome
+import com.example.androidsmartmarket.model.WelcomeR
 import com.example.androidsmartmarket.model.Welcomes
 import retrofit2.Call
 import retrofit2.Response
@@ -38,4 +39,10 @@ public interface PhotosService {
        fun searchProducts(
            @Query("q") q : String
        ) : Call<Welcome>
+
+    @Headers("User-Agent: $ACCESS_KEY_SECOND")
+    @GET("v1/sync/frontend/region")
+    fun getRegions(
+        @Query("lang") lang : String
+    ) : Call<WelcomeR>
 }

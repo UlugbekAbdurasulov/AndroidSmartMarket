@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
+import com.example.androidsmartmarket.activity.AdressActivity
 import com.example.androidsmartmarket.activity.DetailsActivity
 import com.example.androidsmartmarket.activity.SearchActivity
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
@@ -82,6 +83,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             autoCompleteTextview2.setOnClickListener {
                 var intent : Intent = Intent(requireContext(), SearchActivity::class.java)
                         startActivity(intent)
+            }
+            setAddress.setOnClickListener {
+                var intent : Intent = Intent(requireContext(),AdressActivity::class.java)
+                startActivity(intent)
             }
         }
     }
