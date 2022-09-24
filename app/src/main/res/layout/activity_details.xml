@@ -69,30 +69,17 @@
 
             </LinearLayout>
             <LinearLayout
-                android:weightSum="5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_weight="4"
                     android:id="@+id/tv_priceOld"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
-                <TextView
-                    android:textStyle="bold"
-                    android:gravity="right"
-                    android:layout_weight="1"
-                    android:id="@+id/tvTechnicalParameters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"
-                    android:text="UZS"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginBottom="5dp"
@@ -302,6 +289,7 @@
                 android:textColor="@color/black"
                 android:text="Продавец"/>
             <Button
+                android:id="@+id/btn_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@null"

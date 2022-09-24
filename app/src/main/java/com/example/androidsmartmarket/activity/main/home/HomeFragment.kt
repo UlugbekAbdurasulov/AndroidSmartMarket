@@ -1,12 +1,14 @@
 package com.example.androidsmartmarket.activity.main.home
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -22,6 +24,7 @@ import com.example.androidsmartmarket.adabter.FamilyAdapter
 import com.example.androidsmartmarket.adabter.HomeAdapter
 import com.example.androidsmartmarket.adabter.NoteAdapter
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
+import com.example.androidsmartmarket.manager.PrefsManager
 import com.example.androidsmartmarket.model.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +39,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var arrayList_FM : ArrayList<Datas> = ArrayList()
     var arrayList_COMP : ArrayList<Datas> = ArrayList()
     var booleans = true
+
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,9 +59,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.rvItem.adapter = adapter
         binding.rvFamily.adapter = familyAdapter
         binding.rvComp.adapter = noteAdapter
-
         homeViewModel.apiPostList()
-
+        var address : String? = PrefsManager.getInstance(requireContext())!!.getData("address")
+        binding.getAddress.text = address
         homeViewModel.allPostsrter.observe(requireActivity(),{
             arrayList.add(it.data)
             if (booleans == true) {
@@ -86,7 +90,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             }
             setAddress.setOnClickListener {
                 var intent : Intent = Intent(requireContext(),AdressActivity::class.java)
-                startActivity(intent)
+                detail.launch(intent)
             }
         }
     }
@@ -96,6 +100,15 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
+    }
+
+    var detail = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){ result->
+        if (result.resultCode == Activity.RESULT_OK){
+            var user = result.data
+            var user1  = user!!.getStringExtra("result")
+            binding.getAddress.text = user1
+        }
     }
 
 

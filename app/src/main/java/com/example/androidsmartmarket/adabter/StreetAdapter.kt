@@ -10,26 +10,27 @@ import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.main.home.HomeFragment
 import com.example.androidsmartmarket.databinding.ItemLayoutDetailsBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutRegionBinding
+import com.example.androidsmartmarket.databinding.ItemLayoutStreetBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
 import com.example.androidsmartmarket.model.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
-class RegionAdapter(private val clickListener:(Datum)->Unit): RecyclerView.Adapter<RegionViewHolder>() {
+class StreetAdapter(private val clickListener:(District)->Unit): RecyclerView.Adapter<Street>() {
 
-    private var items = mutableListOf<Datum>()
+    private var items = mutableListOf<District>()
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Datum>){
+    fun setItems(items: List<District>){
         this.items = items.toMutableList()
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RegionViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Street {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemLayoutRegionBinding.inflate(inflater, parent, false)
-        return RegionViewHolder(binding)
+        val binding = ItemLayoutStreetBinding.inflate(inflater, parent, false)
+        return Street(binding)
     }
-    override fun onBindViewHolder(holder: RegionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Street, position: Int) {
         var id : Long = 0
         val movie = items[position]
         holder.binding.rgName.text = movie.name
@@ -43,5 +44,5 @@ class RegionAdapter(private val clickListener:(Datum)->Unit): RecyclerView.Adapt
     }
 
 }
-class RegionViewHolder(val binding: ItemLayoutRegionBinding) : RecyclerView.ViewHolder(binding.root) {
+class Street(val binding: ItemLayoutStreetBinding) : RecyclerView.ViewHolder(binding.root) {
 }

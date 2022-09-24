@@ -2,8 +2,12 @@ package com.example.androidsmartmarket.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -38,7 +42,7 @@ class DetailsActivity : AppCompatActivity() {
 
         //    tvPrice.text = "${member.price} UZS"
             tvNames.text = member.name
-            tvTechnicalParameters.text = member.technical_parameters
+            tvPriceOld.setText(Html.fromHtml(member.technical_parameters))
             tvUnit.text = member.unit
             tvUnitId.text = member.min_amount.toString()
             tvExpirationLife.text = member.expiration_life
@@ -47,17 +51,24 @@ class DetailsActivity : AppCompatActivity() {
             tvMakeName.text = member.country_name
             tvNameSeller.text = member.seller.name
             tvAdressSeller.text = member.seller.address
+            Log.d("tvTechnicalParameters",tvPriceOld.text.toString())
            // tvPriceT.text = "${member.price} UZS"
 
             var s = (String.format("%,d", member.price)).replace(',', ' ')
             binding.tvPrice.text = "${s} UZS"
             var d = (String.format("%,d", member.price)).replace(',', ' ')
             binding.tvPriceT.text = "${d} UZS"
-
-
+            binding.btnCall.setOnClickListener {
+                openCallContact(member.seller.mobile_phone)
+            }
           //  tvName.text = member.name
         }
 
+    }
+
+    private fun openCallContact(tvCall: String) {
+        val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ Uri.encode(tvCall)))
+        startActivity(callIntent)
     }
 
 /*    private fun initviews(){
