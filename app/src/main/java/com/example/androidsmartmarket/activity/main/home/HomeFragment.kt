@@ -38,7 +38,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var arrayList : ArrayList<Datas> = ArrayList()
     var arrayList_FM : ArrayList<Datas> = ArrayList()
     var arrayList_COMP : ArrayList<Datas> = ArrayList()
-    var booleans = true
+    var booleans = false
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +64,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.getAddress.text = address
         homeViewModel.allPostsrter.observe(requireActivity(),{
             arrayList.add(it.data)
-            if (booleans == true) {
+            Log.d("SIZE",arrayList.size.toString())
+            if (arrayList.size == 20) {
                 adapter!!.setItems(arrayList)
             }else {
 

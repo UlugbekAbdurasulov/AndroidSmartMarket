@@ -49,10 +49,6 @@ class CategoryAdapter(private val clickListener:(id : Long)->Unit): RecyclerView
         return items.size
     }
 
-    operator fun invoke(value: (Long) -> Unit): CategoryAdapter? {
-
-    }
-
     /*  operator fun invoke(value: (Long) -> Unit): CategoryAdapter? {
       }*/
 
