@@ -8,19 +8,11 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidsmartmarket.R
-import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.activity.viewmodel.SearchViewModel
-import com.example.androidsmartmarket.adabter.FamilyAdapter
-import com.example.androidsmartmarket.adabter.HomeAdapter
 import com.example.androidsmartmarket.adabter.SearchAdapter
-import com.example.androidsmartmarket.databinding.ActivityDetailsBinding
 import com.example.androidsmartmarket.databinding.ActivitySearchBinding
-import com.example.androidsmartmarket.model.Data
 import com.example.androidsmartmarket.model.Datas
-import com.example.androidsmartmarket.model.Product
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

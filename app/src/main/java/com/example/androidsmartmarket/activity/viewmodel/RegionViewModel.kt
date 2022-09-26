@@ -1,11 +1,6 @@
 package com.example.androidsmartmarket.activity.viewmodel
-
-import android.graphics.Region
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androidsmartmarket.activity.main.home.HomeFragment
-import com.example.androidsmartmarket.model.Technicals
-import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.WelcomeR
 import com.example.androidsmartmarket.model.Welcomes
 import com.example.androidsmartmarket.network.service.PhotosService

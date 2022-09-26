@@ -8,19 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
-import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.adabter.DetailsAdapter
-import com.example.androidsmartmarket.adabter.TechnicalsViewHolder
 import com.example.androidsmartmarket.databinding.ActivityDetailsBinding
-import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
 import com.example.androidsmartmarket.model.Datas
-import com.example.androidsmartmarket.model.Sellers
 
 class DetailsActivity : AppCompatActivity() {
     lateinit var context: Context

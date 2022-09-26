@@ -1,7 +1,6 @@
 package com.example.androidsmartmarket.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,6 @@ import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.main.listener.HomeListener
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.databinding.ActivityMainBinding
-import com.example.androidsmartmarket.utils.ARG
 import dagger.hilt.android.AndroidEntryPoint
 
 
