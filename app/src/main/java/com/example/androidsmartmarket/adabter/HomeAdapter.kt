@@ -55,7 +55,7 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
     private fun getItems(movie: Int, binding: ItemLayoutTechnicalsBinding) {
         for (i in 0 until items.size) {
             if (i == movie) {
-                var count = 0
+                var count = 1
                 binding.llCount.visibility = View.VISIBLE
                 binding.btnSale.visibility = View.GONE
                 binding.tvCount.text = count.toString()

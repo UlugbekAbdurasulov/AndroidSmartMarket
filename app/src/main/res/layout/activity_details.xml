@@ -22,7 +22,7 @@
                 android:id="@+id/tv_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/black"
@@ -34,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
-                android:textStyle="bold"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="15dp"
@@ -108,7 +107,6 @@
                     android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -135,7 +133,6 @@
                     android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -162,7 +159,6 @@
                     android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -189,7 +185,6 @@
                     android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -215,7 +210,6 @@
                     android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -241,7 +235,6 @@
                     android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textSize="17sp"
                     android:textColor="@color/black"/>
                 <TextView
@@ -271,6 +264,7 @@
                 android:textColor="@color/black"
                 android:text="Продавец"/>
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:id="@+id/tv_name_seller"
                 android:layout_width="wrap_content"
@@ -280,14 +274,16 @@
                 android:textColor="@color/black"
                 android:text="Продавец"/>
             <TextView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:id="@+id/tv_adress_seller"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/black"
                 android:text="Продавец"/>
+
             <Button
                 android:id="@+id/btn_call"
                 android:layout_width="wrap_content"
@@ -332,6 +328,55 @@
                 android:layout_marginTop="5dp"
                 android:textAllCaps="false"
                 android:text="В корзинку"/>
+            <LinearLayout
+                android:id="@+id/ll_countt"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:weightSum="3"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:visibility="gone"
+                android:background="@drawable/background_button_reg">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/img_decrement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_remove_24"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/tv_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="0"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/img_increment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_add_24"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

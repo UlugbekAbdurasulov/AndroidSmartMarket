@@ -8,11 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
+import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.adabter.DetailsAdapter
+import com.example.androidsmartmarket.adabter.TechnicalsViewHolder
 import com.example.androidsmartmarket.databinding.ActivityDetailsBinding
+import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
 import com.example.androidsmartmarket.model.Datas
 import com.example.androidsmartmarket.model.Sellers
 
@@ -32,7 +38,7 @@ class DetailsActivity : AppCompatActivity() {
         binding.tvShows.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
         detailsAdapter = DetailsAdapter()
         val member = intent.getSerializableExtra("datas") as Datas
-     /*   val membert = intent.getSerializableExtra("seller") as Sellers*/
+        /*   val membert = intent.getSerializableExtra("seller") as Sellers*/
 
         binding.apply {
             tvShows.adapter = detailsAdapter
@@ -40,7 +46,7 @@ class DetailsActivity : AppCompatActivity() {
             val snapHelper: SnapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(tvShows)
 
-        //    tvPrice.text = "${member.price} UZS"
+            //    tvPrice.text = "${member.price} UZS"
             tvNames.text = member.name
             tvPriceOld.setText(Html.fromHtml(member.technical_parameters))
             tvUnit.text = member.unit
@@ -52,7 +58,7 @@ class DetailsActivity : AppCompatActivity() {
             tvNameSeller.text = member.seller.name
             tvAdressSeller.text = member.seller.address
             Log.d("tvTechnicalParameters",tvPriceOld.text.toString())
-           // tvPriceT.text = "${member.price} UZS"
+            // tvPriceT.text = "${member.price} UZS"
 
             var s = (String.format("%,d", member.price)).replace(',', ' ')
             binding.tvPrice.text = "${s} UZS"
@@ -61,7 +67,7 @@ class DetailsActivity : AppCompatActivity() {
             binding.btnCall.setOnClickListener {
                 openCallContact(member.seller.mobile_phone)
             }
-          //  tvName.text = member.name
+            //  tvName.text = member.name
         }
 
     }
@@ -79,3 +85,4 @@ class DetailsActivity : AppCompatActivity() {
         }
     }*/
 }
+
