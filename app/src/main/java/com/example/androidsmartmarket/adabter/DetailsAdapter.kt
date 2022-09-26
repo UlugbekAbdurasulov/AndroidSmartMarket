@@ -1,16 +1,13 @@
 package com.example.androidsmartmarket.adabter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.main.home.HomeFragment
 import com.example.androidsmartmarket.databinding.ItemLayoutDetailsBinding
-import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
 import com.example.androidsmartmarket.model.*
 import java.text.DecimalFormat
@@ -40,8 +37,6 @@ class DetailsAdapter(): RecyclerView.Adapter<DetailsViewHolder>() {
             .error(R.drawable.ic_launcher_background)
             .into(holder.binding.userTitle)
     }
-
-
 
     override fun getItemCount(): Int {
         return items.size
