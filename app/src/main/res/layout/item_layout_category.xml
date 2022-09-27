@@ -10,6 +10,7 @@
         android:id="@+id/userTitle"
         android:padding="15dp">
         <LinearLayout
+            android:id="@+id/lv_title_category"
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

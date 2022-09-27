@@ -53,9 +53,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvFamily.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvComp.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        adapter = HomeAdapter({ seletedItem: Datas -> listItemClicked(seletedItem,view)})
+        adapter = HomeAdapter{ seletedItem: Datas -> listItemClicked(seletedItem,view)}
         familyAdapter = FamilyAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
+
         noteAdapter = NoteAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
+
         binding.rvItem.adapter = adapter
         binding.rvFamily.adapter = familyAdapter
         binding.rvComp.adapter = noteAdapter

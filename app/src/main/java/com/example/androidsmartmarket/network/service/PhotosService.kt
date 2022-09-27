@@ -2,6 +2,7 @@ package com.example.androidsmartmarket.network.service
 
 
 
+import com.example.androidsmartmarket.model.Welcom
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.WelcomeR
 import com.example.androidsmartmarket.model.Welcomes
@@ -39,6 +40,11 @@ public interface PhotosService {
        fun searchProducts(
            @Query("q") q : String
        ) : Call<Welcome>
+
+    @Headers("User-Agent: $ACCESS_KEY")
+    @GET("v1/ecommerce/categories?lang=uz")
+    fun listCategory(): Call<Welcom>
+
 
     @Headers("User-Agent: $ACCESS_KEY_SECOND")
     @GET("v1/sync/frontend/region")

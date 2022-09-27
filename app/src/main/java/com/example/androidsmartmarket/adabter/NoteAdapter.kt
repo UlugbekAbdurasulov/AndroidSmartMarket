@@ -31,7 +31,7 @@ class NoteAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Comp
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemLayoutCompBinding.inflate(inflater, parent, false)
         return CompViewHolder(binding)
-    }
+   }
     override fun onBindViewHolder(holder: CompViewHolder, position: Int) {
         var id : Long = 0
         val movie = items[position]
