@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,11 +66,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             Log.d("SIZE",arrayList.size.toString())
             if (arrayList.size == 20) {
                 adapter!!.setItems(arrayList)
+                arrayList.clear()
             }else {
-
             }
         })
-
         homeViewModel.allPostsFamily.observe(requireActivity(),{
             arrayList_FM.add(it!!.data)
             familyAdapter!!.setItems(arrayList_FM)

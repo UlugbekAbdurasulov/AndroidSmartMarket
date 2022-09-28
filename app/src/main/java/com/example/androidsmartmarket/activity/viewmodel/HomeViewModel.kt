@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
     val id : ArrayList<Long> = ArrayList()
     val id_Family : ArrayList<Long> = ArrayList()
     val id_Comp : ArrayList<Long> = ArrayList()
-    var getHashSet : HashSet<Long> = HashSet()
+    var getHashSet : HashMap<Long,String> = HashMap()
     var technicals : Technicals = Technicals()
     fun apiPostList() {
         var homeFragment: HomeFragment = HomeFragment()
@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
                 for (i in response.body()!!.data.technicals) {
                     for (i in i.photos) {
                         id.add(i.product_id)
-                        getHashSet.add(i.product_id)
+                        getHashSet.put(i.product_id,"")
                         break
                     }
 //                    i.photos.forEach {
@@ -73,8 +73,8 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
     }
 
 
-    fun apiGetList(id: HashSet<Long>) {
-        for (i in id) {
+    fun apiGetList(id: HashMap<Long, String>) {
+        for (i in id.keys) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {
                     TODO("Not yet implemented")

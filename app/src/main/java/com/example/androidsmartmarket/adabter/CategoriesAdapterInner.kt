@@ -14,7 +14,7 @@ import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerBinding
 import com.example.androidsmartmarket.model.*
 import java.lang.System.load
 
-class CategoriesAdapterInner(): RecyclerView.Adapter<CatViewInnerHolder>() {
+class CategoriesAdapterInner(var clickListener: (Map<String,ValueValueClass>) -> Unit): RecyclerView.Adapter<CatViewInnerHolder>() {
     private var items = mutableListOf<DatumValue>()
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<DatumValue>){
@@ -33,7 +33,7 @@ class CategoriesAdapterInner(): RecyclerView.Adapter<CatViewInnerHolder>() {
         val moviie = items[position]
 
     holder.binding.tvTitleCategory.setOnClickListener{
-//        clickListener(moviie.value)
+        clickListener(moviie.value)
     }
         if (moviie.title != null) {
             holder.binding.tvTitleCategory.text = moviie.title

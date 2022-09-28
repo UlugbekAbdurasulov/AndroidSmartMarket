@@ -15,6 +15,7 @@ import com.example.androidsmartmarket.databinding.FragmentDetailsBinding
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
 import com.example.androidsmartmarket.model.Datas
 import com.example.androidsmartmarket.model.DatumValue
+import com.example.androidsmartmarket.model.ValueValueClass
 
 
 class DetailsFragment: Fragment(R.layout.fragment_details) {
@@ -28,14 +29,19 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
 
     private fun initViews() {
         binding.rvCategoryIn.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
-        adapter = CategoriesAdapterInner()
+        adapter = CategoriesAdapterInner{seletedItem: Map<String, ValueValueClass> -> listItemClicked(seletedItem)}
         binding.rvCategoryIn.adapter = adapter
         var text = arguments?.getSerializable("amount") as HashMap<String,DatumValue>
         text.values.forEach{
             Log.d("STRHASHMAP",it.title.toString())
         }
-
-        var keys : List<DatumValue> = ArrayList(text.values)
+        var keys : ArrayList<DatumValue> = ArrayList(text.values)
         adapter!!.setItems(keys)
+    }
+
+    private fun listItemClicked(seletedItem: Map<String, ValueValueClass>) {
+        seletedItem.values.forEach {
+            Log.d("VARCHARVAR",it.toString())
+        }
     }
 }
