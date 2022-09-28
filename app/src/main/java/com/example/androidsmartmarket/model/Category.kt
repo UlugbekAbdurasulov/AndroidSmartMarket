@@ -9,7 +9,7 @@ data class Welcom (
     val status: Long,
     val path: Any? = null,
     val data: List<Datume>
-)
+):Serializable
 
 data class Datume (
     val id: Long,

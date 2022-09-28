@@ -10,37 +10,40 @@ import androidx.core.view.PointerIconCompat.load
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.databinding.ItemLayoutCategoryBinding
+import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerBinding
 import com.example.androidsmartmarket.model.*
 import java.lang.System.load
 
-class CategoriesAdapter(var clickListener: (Map<String,DatumValue>) -> Unit): RecyclerView.Adapter<CatVeiwHolder>() {
-    private var items = mutableListOf<Datume>()
+class CategoriesAdapterInner(): RecyclerView.Adapter<CatViewInnerHolder>() {
+    private var items = mutableListOf<DatumValue>()
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Datume>){
+    fun setItems(items: List<DatumValue>){
         this.items = items.toMutableList()
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatVeiwHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewInnerHolder {
      val inflater = LayoutInflater.from(parent.context)
-     val binding = ItemLayoutCategoryBinding.inflate(inflater, parent,false)
-   return CatVeiwHolder(binding)
+     val binding = ItemLayoutCategoryInnerBinding.inflate(inflater, parent,false)
+   return CatViewInnerHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CatVeiwHolder, position: Int) {
+    override fun onBindViewHolder(holder: CatViewInnerHolder, position: Int) {
 
         val moviie = items[position]
 
     holder.binding.tvTitleCategory.setOnClickListener{
-        clickListener(moviie.value)
+//        clickListener(moviie.value)
     }
-        holder.binding.tvTitleCategory.text = moviie.title
+        if (moviie.title != null) {
+            holder.binding.tvTitleCategory.text = moviie.title
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 }
-class CatVeiwHolder(val binding: ItemLayoutCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+class CatViewInnerHolder(val binding: ItemLayoutCategoryInnerBinding) : RecyclerView.ViewHolder(binding.root) {
 
 }

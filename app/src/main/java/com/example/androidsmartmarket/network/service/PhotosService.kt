@@ -41,14 +41,16 @@ public interface PhotosService {
            @Query("q") q : String
        ) : Call<Welcome>
 
-    @Headers("User-Agent: $ACCESS_KEY")
-    @GET("v1/ecommerce/categories?lang=uz")
-    fun listCategory(): Call<Welcom>
-
 
     @Headers("User-Agent: $ACCESS_KEY_SECOND")
     @GET("v1/sync/frontend/region")
     fun getRegions(
         @Query("lang") lang : String
     ) : Call<WelcomeR>
+
+    @Headers("User-Agent: $ACCESS_KEY")
+    @GET("v1/ecommerce/categories")
+    fun listCategory(
+        @Query("lang") lang: String
+    ): Call<Welcom>
 }

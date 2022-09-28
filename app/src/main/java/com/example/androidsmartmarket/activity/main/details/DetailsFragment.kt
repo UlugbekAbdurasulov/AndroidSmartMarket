@@ -1,27 +1,41 @@
 package com.example.androidsmartmarket.activity.main.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
+import com.example.androidsmartmarket.adabter.CategoriesAdapter
+import com.example.androidsmartmarket.adabter.CategoriesAdapterInner
 import com.example.androidsmartmarket.databinding.FragmentBasketBinding
 import com.example.androidsmartmarket.databinding.FragmentCategoryBinding
 import com.example.androidsmartmarket.databinding.FragmentDetailsBinding
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
 import com.example.androidsmartmarket.model.Datas
+import com.example.androidsmartmarket.model.DatumValue
 
 
 class DetailsFragment: Fragment(R.layout.fragment_details) {
 
     private val binding by viewBinding(FragmentDetailsBinding::bind)
-
+    var adapter: CategoriesAdapterInner? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
 
     private fun initViews() {
+        binding.rvCategoryIn.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
+        adapter = CategoriesAdapterInner()
+        binding.rvCategoryIn.adapter = adapter
+        var text = arguments?.getSerializable("amount") as HashMap<String,DatumValue>
+        text.values.forEach{
+            Log.d("STRHASHMAP",it.title.toString())
+        }
 
+        var keys : List<DatumValue> = ArrayList(text.values)
+        adapter!!.setItems(keys)
     }
 }

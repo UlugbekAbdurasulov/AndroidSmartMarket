@@ -10,8 +10,6 @@
         android:name="com.example.androidsmartmarket.activity.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <action android:id="@+id/action_HomeFragment"
-            app:destination="@+id/navigation_details"/>
     </fragment>
 
     <fragment
@@ -19,6 +17,8 @@
         android:name="com.example.androidsmartmarket.activity.main.category.CategoryFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_category" >
+        <action android:id="@+id/action_CategoryFragment"
+            app:destination="@+id/navigation_details"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_basket"
