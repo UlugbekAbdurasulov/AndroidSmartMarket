@@ -47,6 +47,8 @@
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/drawable-v24/widgets_home.xml" value="0.1575" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/drawable/cursor.xml" value="0.1835" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/drawable/et_background.xml" value="0.1835" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/activity_adress.xml" value="0.25" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/activity_category_rv.xml" value="0.23958333333333334" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/activity_details.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/activity_home.xml" value="0.176" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
@@ -58,11 +60,19 @@
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/fragment_details.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/fragment_profile.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_category.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_category_inner.xml" value="0.1" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_category_inner_rv.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_category_inner_rv2.xml" value="0.1" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_comp.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_details.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_region.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_search.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_street.xml" value="0.2" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_technical.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_layout_technicals.xml" value="0.176" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_shared_info.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/item_shared_info_sec.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/recyclerview_image_adabter.xml" value="0.25" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/recyclerview_image_adabter2.xml" value="0.25" />
         <entry key="..\:/Users/andyn/AndroidStudioProjects/AndroidSmartMarket/app/src/main/res/layout/recyclerview_image_adabter3.xml" value="0.25" />

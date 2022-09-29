@@ -5,21 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.androidsmartmarket.R
-import com.example.androidsmartmarket.activity.main.home.HomeFragment
-import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
-import com.example.androidsmartmarket.databinding.ItemLayoutCompBinding
-import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
-import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
+import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerRvBinding
 import com.example.androidsmartmarket.model.*
 
-class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<TechnicalsViewHolder>() {
+class CategoryInnerRv2Adapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<CategoryInner2ViewHolder>() {
 
-
+    
     private var items = mutableListOf<Datas>()
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<Datas>){
@@ -27,12 +20,12 @@ class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Te
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TechnicalsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryInner2ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemLayoutTechnicalBinding.inflate(inflater, parent, false)
-        return TechnicalsViewHolder(binding)
+        val binding = ItemLayoutCategoryInnerRvBinding.inflate(inflater, parent, false)
+        return CategoryInner2ViewHolder(binding)
     }
-    override fun onBindViewHolder(holder: TechnicalsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryInner2ViewHolder, position: Int) {
         var id : Long = 0
         val movie = items[position]
         movie.photos.forEach {
@@ -57,7 +50,7 @@ class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Te
 //        homeFragment.addProduct(id,"ru",movie.seller.region_id,movie.seller.district_id)
 
     }
-    private fun getItems(movie: Int, binding: ItemLayoutTechnicalBinding) {
+    private fun getItems(movie: Int, binding: ItemLayoutCategoryInnerRvBinding) {
         for (i in 0 until items.size) {
             if (i == movie) {
                 var count = 1
@@ -87,6 +80,6 @@ class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Te
     }
 
 }
-class TechnicalsViewHolder(val binding: ItemLayoutTechnicalBinding) : RecyclerView.ViewHolder(binding.root) {
+class CategoryInner2ViewHolder(val binding: ItemLayoutCategoryInnerRvBinding) : RecyclerView.ViewHolder(binding.root) {
 
 }
