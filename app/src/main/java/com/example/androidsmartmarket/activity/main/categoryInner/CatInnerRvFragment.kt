@@ -30,7 +30,7 @@ import kotlin.collections.ArrayList
 class CatInnerRvFragment: Fragment(R.layout.fragment_home) {
 
     var adapter: CategoryInnerRvAdapter? = null
-    var adapterInner: CategoryInnerRv2Adapter? = null
+
 
     val homeViewModel: HomeViewModel by viewModels()
     var arrayList: ArrayList<Datas> = ArrayList()
@@ -57,6 +57,6 @@ class CatInnerRvFragment: Fragment(R.layout.fragment_home) {
        // adapterInner = FamilyAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
 
         binding.rvCategoriy.adapter = adapter
-        binding.rvCategoriyy.adapter = adapterInner
+        
     }
 }

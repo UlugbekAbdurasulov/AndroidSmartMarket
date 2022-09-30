@@ -27,23 +27,39 @@ class CategoryInnerRvAdapter(var clickListener: (Producta) -> Unit): RecyclerVie
         override fun onBindViewHolder(holder: CategoryInnerViewHolder, position: Int) {
 
             val uzmovi = items[position]
-            for (i in uzmovi.photos){
+          /*  for (i in uzmovi.photos){
                 if (i.is_main == true){
                     Glide
                         .with(holder.itemView)
                         .load(i.product_ID)
-                        .into(holder.binding.userTitle)
+                        .into(holder.binding.url)
             }
+
             holder.binding.userTitle.setOnClickListener{
                 clickListener(uzmovi)
             }
-            }
-            holder.binding.tvPrice.text = uzmovi.name
+            }*/
+
+         //   holder.binding.tvPrice.text = uzmovi.price
+            var s = (String.format("%,d", uzmovi.price)).replace(',', ' ')
+            holder.binding.tvPrice.text = s
+            holder.binding.tvName.text = uzmovi.name
             holder.binding.btnSale.setOnClickListener {
                 getItems(position,holder.binding)
                 Log.d("Stefan",position.toString())
+
             }
         }
+
+
+
+
+
+
+
+
+
+
     private fun getItems(movie: Int, binding: ItemLayoutCategoryInnerRvBinding) {
         for (i in 0 until items.size) {
             if (i == movie) {

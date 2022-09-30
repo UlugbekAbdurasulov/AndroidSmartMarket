@@ -8,7 +8,7 @@ data class Welcomee (
     val timestamp: String,
     val status: Long,
     val path: Any? = null,
-    val data: Data
+    val data: Dataa
 ): Serializable
 
 data class Dataa (
@@ -33,6 +33,7 @@ data class Producta (
     val rating: Long,
     val commentNumber: Long,
     val photos: List<PhotoCat>,
+    val deliveryTypess: List<DeliveryTypess>,
     val deliveryTypes: DeliveryTypess
 ):Serializable
 
