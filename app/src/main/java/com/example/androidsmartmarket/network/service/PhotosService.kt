@@ -2,15 +2,10 @@ package com.example.androidsmartmarket.network.service
 
 
 
-import com.example.androidsmartmarket.model.Welcom
-import com.example.androidsmartmarket.model.Welcome
-import com.example.androidsmartmarket.model.WelcomeR
-import com.example.androidsmartmarket.model.Welcomes
+import com.example.androidsmartmarket.model.*
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 public interface PhotosService {
@@ -53,4 +48,25 @@ public interface PhotosService {
     fun listCategory(
         @Query("lang") lang: String
     ): Call<Welcom>
+
+    @Headers("User-Agent: $ACCESS_KEY")
+    @GET("v1/sync/frontend/catalogs")
+    fun listCategories(
+        @Query("lang") lang: String
+    ): Call<Welcomess>
+
+    @Headers("User-Agent: $ACCESS_KEY")
+    @GET("v1/sync/frontend/catalog/products")
+    fun listCategoriesId(
+        @Query("lang") lang: String,
+        @Query("shipping_region_id") shipping_region_id: Long,
+        @Query("shipping_district_id") shipping_district_id: Long,
+        @Query("category_id") category_id: Long,
+        @Query("page") page: Long,
+        @Query("page_size") page_size: Long,
+        @Query("sorting") sorting: String,
+        @Query("order") order: String,
+        @Query("region_id") region_id: Long,
+        @Query("district_id") district_id: Long,
+    ): Call<Welcome>
 }

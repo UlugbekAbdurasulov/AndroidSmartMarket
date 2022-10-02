@@ -64,6 +64,7 @@ data class Product (
     val name: String,
     val category_id: Long,
     val main_photo: String,
+    val photos: List<Photos>,
     val price: Long
 ): Serializable
 

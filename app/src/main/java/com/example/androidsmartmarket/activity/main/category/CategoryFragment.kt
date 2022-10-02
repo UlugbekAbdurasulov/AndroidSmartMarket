@@ -40,14 +40,33 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
         binding.rvCategory.adapter = adapter
         categoryViewModel.allCategory.observe(requireActivity(), {
             adapter!!.setItems(it.data)
+            Log.d("InitialMessage",it.data.toString())
         })
 
         categoryViewModel.apiGetCategory()
+
+        categoryViewModel.allCategories.observe(requireActivity(),{
+            it.data.categories.forEach {
+                if (it.parent_id.toInt() == 0) {
+                    Log.d("CATEGORIESS", it.name.toString())
+                }
+            }
+            Log.d("CATEGORIESS", it.data.categories.toString())
+        })
+        categoryViewModel.apiGetCategoryies()
+
+        categoryViewModel.allCategoriesId.observe(requireActivity(),{
+            it.data.products.forEach {
+                Log.d("OILAKREDIT",it.name)
+            }
+        })
+        categoryViewModel.apiGetCategoriesId()
     }
 
     private fun listItemClicked(seletedItem: Map<String, DatumValue>){
         var map : HashMap<String,DatumValue> = HashMap(seletedItem)
-        val bundle = bundleOf("amount" to map)
+        var bundle : Bundle = Bundle()
+        bundle = bundleOf("amount" to map)
         findNavController().navigate(R.id.action_CategoryFragment, bundle)
     }
 
