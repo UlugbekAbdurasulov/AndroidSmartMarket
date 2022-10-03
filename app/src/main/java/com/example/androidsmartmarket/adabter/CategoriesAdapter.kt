@@ -2,6 +2,7 @@ package com.example.androidsmartmarket.adabter
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.KeyCharacterMap.load
 import android.view.LayoutInflater
 import android.view.PointerIcon.load
@@ -13,10 +14,10 @@ import com.example.androidsmartmarket.databinding.ItemLayoutCategoryBinding
 import com.example.androidsmartmarket.model.*
 import java.lang.System.load
 
-class CategoriesAdapter(var clickListener: (Map<String,DatumValue>) -> Unit): RecyclerView.Adapter<CatVeiwHolder>() {
-    private var items = mutableListOf<Datume>()
+class CategoriesAdapter(var clickListener: (parent_id : Long) -> Unit): RecyclerView.Adapter<CatVeiwHolder>() {
+    private var items = mutableListOf<Category>()
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Datume>){
+    fun setItems(items: List<Category>){
         this.items = items.toMutableList()
         notifyDataSetChanged()
     }
@@ -30,11 +31,13 @@ class CategoriesAdapter(var clickListener: (Map<String,DatumValue>) -> Unit): Re
     override fun onBindViewHolder(holder: CatVeiwHolder, position: Int) {
 
         val moviie = items[position]
+        if (moviie.parent_id.toInt() == 0) {
+            holder.binding.tvTitleCategory.text = moviie.name
+        }
 
-    holder.binding.tvTitleCategory.setOnClickListener{
-        clickListener(moviie.value)
-    }
-        holder.binding.tvTitleCategory.text = moviie.title
+        holder.binding.tvTitleCategory.setOnClickListener{
+            clickListener(moviie.id)
+        }
     }
 
     override fun getItemCount(): Int {

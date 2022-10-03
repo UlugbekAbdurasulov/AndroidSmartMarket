@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.androidsmartmarket.model.Welcom
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomess
-import com.example.androidsmartmarket.model.Welcomev
 import com.example.androidsmartmarket.network.service.PhotosService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call

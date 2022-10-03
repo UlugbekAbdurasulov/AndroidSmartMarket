@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.HashSet
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +23,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
     val id : ArrayList<Long> = ArrayList()
     val id_Family : ArrayList<Long> = ArrayList()
     val id_Comp : ArrayList<Long> = ArrayList()
-    var getHashSet : HashMap<Long,String> = HashMap()
+    var getHashSet : HashSet<Long> = HashSet()
     var technicals : Technicals = Technicals()
     fun apiPostList() {
         var homeFragment: HomeFragment = HomeFragment()
@@ -31,7 +32,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
                 for (i in response.body()!!.data.technicals) {
                     for (i in i.photos) {
                         id.add(i.product_id)
-                        getHashSet.put(i.product_id,"")
+                        getHashSet.add(i.product_id)
                         break
                     }
 //                    i.photos.forEach {
@@ -66,18 +67,16 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
             }
 
             override fun onFailure(call: Call<Welcome>, t: Throwable) {
-                TODO("Not yet implemented")
             }
 
         })
     }
 
 
-    fun apiGetList(id: HashMap<Long, String>) {
-        for (i in id.keys) {
+    fun apiGetList(id: HashSet<Long>) {
+        for (i in id) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {
-                    TODO("Not yet implemented")
                 }
 
                 override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {
@@ -92,7 +91,6 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
         for (i in id_Family) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {
-                    TODO("Not yet implemented")
                 }
 
                 override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {
@@ -107,7 +105,6 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
         for (i in id_Comp) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {
-                    TODO("Not yet implemented")
                 }
 
                 override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {

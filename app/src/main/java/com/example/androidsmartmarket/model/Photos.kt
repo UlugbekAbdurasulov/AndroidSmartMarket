@@ -1,6 +1,7 @@
 package com.example.androidsmartmarket.model
 
 import java.io.Serializable
+
 data class Welcome (
     val error: Any? = null,
     val message: Any? = null,

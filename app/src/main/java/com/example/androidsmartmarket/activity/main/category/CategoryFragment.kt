@@ -13,8 +13,8 @@ import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.viewmodel.CategoryViewModel
 import com.example.androidsmartmarket.adabter.CategoriesAdapter
 import com.example.androidsmartmarket.databinding.FragmentCategoryBinding
+import com.example.androidsmartmarket.model.Category
 import com.example.androidsmartmarket.model.DatumValue
-import com.example.androidsmartmarket.model.Datume
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
     var adapter: CategoriesAdapter? = null
     var arrayList : ArrayList<String> = ArrayList()
     val categoryViewModel : CategoryViewModel by viewModels()
-
+    val arrayCategoryList : ArrayList<Category> = ArrayList()
 
     private val binding by viewBinding(FragmentCategoryBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,22 +36,27 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter =
-            CategoriesAdapter { seletedItem: Map<String, DatumValue> -> listItemClicked(seletedItem) }
+            CategoriesAdapter { seletedItem: Long -> listItemClicked(seletedItem) }
         binding.rvCategory.adapter = adapter
-        categoryViewModel.allCategory.observe(requireActivity(), {
-            adapter!!.setItems(it.data)
-            Log.d("InitialMessage",it.data.toString())
-        })
-
-        categoryViewModel.apiGetCategory()
 
         categoryViewModel.allCategories.observe(requireActivity(),{
             it.data.categories.forEach {
                 if (it.parent_id.toInt() == 0) {
+                    arrayCategoryList.add(it)
+                    Log.d("CATEGORIESSArrayCateg", arrayCategoryList.toString())
                     Log.d("CATEGORIESS", it.name.toString())
                 }
             }
-            Log.d("CATEGORIESS", it.data.categories.toString())
+            adapter!!.setItems(arrayCategoryList.toList())
+//            it.data.categories.forEach {
+//                var strParentId = it.parent_id.toString()
+//                if (strParentId.length == 6) {
+//                    var strSub = strParentId.substring(0,3)
+//                    if (strSub.equals("121"))
+//                    Log.d("CATEGORIESSParentId", strSub)
+//                }
+//            }
+//            Log.d("CATEGORIESS",it.data.toString())
         })
         categoryViewModel.apiGetCategoryies()
 
@@ -63,13 +68,21 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
         categoryViewModel.apiGetCategoriesId()
     }
 
-    private fun listItemClicked(seletedItem: Map<String, DatumValue>){
-        var map : HashMap<String,DatumValue> = HashMap(seletedItem)
-        var bundle : Bundle = Bundle()
-        bundle = bundleOf("amount" to map)
-        findNavController().navigate(R.id.action_CategoryFragment, bundle)
+    private fun listItemClicked(seletedItem: Long){
+        Log.d("SELECTITEMID",seletedItem.toString())
+        categoryViewModel.allCategories.observe(requireActivity(),{
+            it.data.categories.forEach {
+                var strParentId = it.parent_id.toString()
+                if (seletedItem == strParentId.toLong()) {
+                    Log.d("SELECTITEMID",it.toString())
+                }
+            }
+        })
+//        categoryViewModel.apiGetCategoryies()
+//        var map : ArrayList<Category> = ArrayList()
+//        var bundle : Bundle = Bundle()
+//        bundle = bundleOf("amount" to map)
+//        findNavController().navigate(R.id.action_CategoryFragment, bundle)
     }
-
-
 
 }
