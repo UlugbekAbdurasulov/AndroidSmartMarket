@@ -65,6 +65,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
                 Log.d("OILAKREDIT",it.name)
             }
         })
+
         categoryViewModel.apiGetCategoriesId()
     }
 
