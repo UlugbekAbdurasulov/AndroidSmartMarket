@@ -36,6 +36,7 @@ class CategoriesAdapterInner(var clickListener: (Long) -> Unit): RecyclerView.Ad
         }
     }
 
+
     override fun getItemCount(): Int {
         return items.size
     }
