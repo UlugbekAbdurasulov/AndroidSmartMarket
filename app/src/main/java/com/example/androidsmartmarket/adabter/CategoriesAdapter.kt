@@ -21,6 +21,7 @@ class CategoriesAdapter(var clickListener: (Map<String,DatumValue>) -> Unit): Re
         notifyDataSetChanged()
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatVeiwHolder {
      val inflater = LayoutInflater.from(parent.context)
      val binding = ItemLayoutCategoryBinding.inflate(inflater, parent,false)
