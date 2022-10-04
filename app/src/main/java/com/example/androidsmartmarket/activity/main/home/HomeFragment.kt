@@ -85,7 +85,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.apply {
             autoCompleteTextview2.setOnClickListener {
                 var intent : Intent = Intent(requireContext(), SearchActivity::class.java)
-                        startActivity(intent)
+                startActivity(intent)
             }
             setAddress.setOnClickListener {
                 var intent : Intent = Intent(requireContext(),AdressActivity::class.java)

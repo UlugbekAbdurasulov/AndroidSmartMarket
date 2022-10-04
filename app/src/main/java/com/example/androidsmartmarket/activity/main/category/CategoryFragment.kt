@@ -48,15 +48,15 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
                 }
             }
             adapter!!.setItems(arrayCategoryList.toList())
-//            it.data.categories.forEach {
-//                var strParentId = it.parent_id.toString()
-//                if (strParentId.length == 6) {
-//                    var strSub = strParentId.substring(0,3)
-//                    if (strSub.equals("121"))
-//                    Log.d("CATEGORIESSParentId", strSub)
-//                }
-//            }
-//            Log.d("CATEGORIESS",it.data.toString())
+            it.data.categories.forEach {
+               var strParentId = it.parent_id.toString()
+                if (strParentId.length == 6) {
+                    var strSub = strParentId.substring(0,3)
+                    if (strSub.equals("121"))
+                        Log.d("CATEGORIESSParentId", strSub)
+                }
+            }
+            Log.d("CATEGORIESS",it.data.toString())
         })
         categoryViewModel.apiGetCategoryies()
 
@@ -71,19 +71,19 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
 
     private fun listItemClicked(seletedItem: Long){
         Log.d("SELECTITEMID",seletedItem.toString())
-//        categoryViewModel.allCategories.observe(requireActivity(),{
-//            it.data.categories.forEach {
-//                var strParentId = it.parent_id.toString()
-//                if (seletedItem == strParentId.toLong()) {
-//                    Log.d("SELECTITEMID",it.toString())
-//                }
-//            }
-//        })
-//        categoryViewModel.apiGetCategoryies()
-//        var map : ArrayList<Category> = ArrayList()
-//        var bundle : Bundle = Bundle()
-//        bundle = bundleOf("amount" to map)
-//        findNavController().navigate(R.id.action_CategoryFragment, bundle)
+        categoryViewModel.allCategories.observe(requireActivity(),{
+            it.data.categories.forEach {
+                var strParentId = it.parent_id.toString()
+                if (seletedItem == strParentId.toLong()) {
+                    Log.d("SELECTITEMID",it.toString())
+                }
+            }
+        })
+        categoryViewModel.apiGetCategoryies()
+       var map : ArrayList<Category> = ArrayList()
+        var bundle : Bundle = Bundle()
+        bundle = bundleOf("amount" to map)
+        findNavController().navigate(R.id.action_CategoryFragment, bundle)
     }
 
 }

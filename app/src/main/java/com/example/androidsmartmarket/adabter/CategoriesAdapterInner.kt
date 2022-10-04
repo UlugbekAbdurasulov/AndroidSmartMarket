@@ -2,22 +2,17 @@ package com.example.androidsmartmarket.adabter
 
 
 import android.annotation.SuppressLint
-import android.view.KeyCharacterMap.load
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.PointerIcon.load
 import android.view.ViewGroup
-import androidx.core.view.PointerIconCompat.load
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.androidsmartmarket.databinding.ItemLayoutCategoryBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerBinding
 import com.example.androidsmartmarket.model.*
-import java.lang.System.load
 
-class CategoriesAdapterInner(var clickListener: (Map<String,ValueValueClass>) -> Unit): RecyclerView.Adapter<CatViewInnerHolder>() {
-    private var items = mutableListOf<DatumValue>()
+class CategoriesAdapterInner(var clickListener: (Long) -> Unit): RecyclerView.Adapter<CatViewInnerHolder>() {
+    private var items = mutableListOf<Category>()
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<DatumValue>){
+    fun setItems(items: List<Category>){
         this.items = items.toMutableList()
         notifyDataSetChanged()
     }
@@ -33,10 +28,11 @@ class CategoriesAdapterInner(var clickListener: (Map<String,ValueValueClass>) ->
         val moviie = items[position]
 
     holder.binding.tvTitleCategory.setOnClickListener{
-        clickListener(moviie.value)
+        clickListener(moviie.id)
     }
-        if (moviie.title != null) {
-            holder.binding.tvTitleCategory.text = moviie.title
+        if (moviie.name != null) {
+            holder.binding.tvTitleCategory.text = moviie.name
+            Log.d("Categories", moviie.name)
         }
     }
 

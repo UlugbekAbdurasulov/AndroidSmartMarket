@@ -7,15 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
-import com.example.androidsmartmarket.adabter.CategoriesAdapter
 import com.example.androidsmartmarket.adabter.CategoriesAdapterInner
-import com.example.androidsmartmarket.databinding.FragmentBasketBinding
-import com.example.androidsmartmarket.databinding.FragmentCategoryBinding
 import com.example.androidsmartmarket.databinding.FragmentDetailsBinding
-import com.example.androidsmartmarket.databinding.FragmentHomeBinding
-import com.example.androidsmartmarket.model.Datas
 import com.example.androidsmartmarket.model.DatumValue
-import com.example.androidsmartmarket.model.ValueValueClass
 
 
 class DetailsFragment: Fragment(R.layout.fragment_details) {
@@ -27,21 +21,36 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
         initViews()
     }
 
-    private fun initViews() {
+/*    private fun initViews() {
         binding.rvCategoryIn.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
-        adapter = CategoriesAdapterInner{seletedItem: Map<String, ValueValueClass> -> listItemClicked(seletedItem)}
+        adapter = CategoriesAdapterInner{seletedItem: Long -> listItemClicked(seletedItem)}
         binding.rvCategoryIn.adapter = adapter
-        var text = arguments?.getSerializable("amount") as HashMap<String,DatumValue>
-        text.values.forEach{
+        var text = arguments?.getSerializable("amount") as ArrayList<*>
+*//*        text.values.forEach{
             Log.d("STRHASHMAP",it.title.toString())
         }
         var keys : ArrayList<DatumValue> = ArrayList(text.values)
-        adapter!!.setItems(keys)
+        adapter!!.setItems(keys)*//*
     }
 
-    private fun listItemClicked(seletedItem: Map<String, ValueValueClass>) {
+    private fun listItemClicked(seletedItem: Long) {
         seletedItem.values.forEach {
             Log.d("VARCHARVAR",it.toString())
         }
+    }*/
+private fun initViews() {
+    binding.rvCategoryIn.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
+    adapter = CategoriesAdapterInner{seletedItem: Long -> listItemClicked(seletedItem)}
+    binding.rvCategoryIn.adapter = adapter
+    var text = arguments?.getSerializable("amount") as ArrayList<*>
+
+
+   // adapter!!.setItems(keys)
+}
+
+    private fun listItemClicked(seletedItem: Long) {
+      //  seletedItem.values.forEach {
+          //  Log.d("VARCHARVAR",it.toString())
+       // }
     }
 }
