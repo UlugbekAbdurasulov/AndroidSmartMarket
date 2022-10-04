@@ -22,6 +22,7 @@ class CategoriesAdapter(var clickListener: (parent_id : Long) -> Unit): Recycler
         notifyDataSetChanged()
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatVeiwHolder {
      val inflater = LayoutInflater.from(parent.context)
      val binding = ItemLayoutCategoryBinding.inflate(inflater, parent,false)
