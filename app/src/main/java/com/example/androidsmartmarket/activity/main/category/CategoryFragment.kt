@@ -71,14 +71,14 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
 
     private fun listItemClicked(seletedItem: Long){
         Log.d("SELECTITEMID",seletedItem.toString())
-        categoryViewModel.allCategories.observe(requireActivity(),{
-            it.data.categories.forEach {
-                var strParentId = it.parent_id.toString()
-                if (seletedItem == strParentId.toLong()) {
-                    Log.d("SELECTITEMID",it.toString())
-                }
-            }
-        })
+//        categoryViewModel.allCategories.observe(requireActivity(),{
+//            it.data.categories.forEach {
+//                var strParentId = it.parent_id.toString()
+//                if (seletedItem == strParentId.toLong()) {
+//                    Log.d("SELECTITEMID",it.toString())
+//                }
+//            }
+//        })
 //        categoryViewModel.apiGetCategoryies()
 //        var map : ArrayList<Category> = ArrayList()
 //        var bundle : Bundle = Bundle()
