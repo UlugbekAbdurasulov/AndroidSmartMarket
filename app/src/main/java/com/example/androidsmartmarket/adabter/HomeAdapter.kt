@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBindingWithLifecycle
 import com.bumptech.glide.Glide
+import com.example.androidsmartmarket.activity.main.home.HomeFragment
+import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
 import com.example.androidsmartmarket.model.*
 
 class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter<HomeViewHolder>() {
-
     private var items = mutableListOf<Datas>()
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<Datas>){
@@ -38,18 +40,28 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
             holder.binding.userTitle.setOnClickListener {
                 clickListener(movie)
             }
+
+            holder.binding.btnSale.setOnClickListener {
+                if (items.indexOf(movie) == position) {
+                    holder.binding.llCount.visibility = View.VISIBLE
+                    holder.binding.btnSale.visibility = View.GONE
+                }
+                Log.d("Stefan",position.toString())
+                Log.d("Stefan",items.indexOf(movie).toString())
+                Log.d("Stefan",itemCount.toString())
+//            getItems(position,holder.binding)
+//                holder.binding.llCount.visibility = View.VISIBLE
+//                holder.binding.btnSale.visibility = View.GONE
+//                Log.d("Stefan",position.toString())
+            }
         }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name
-        holder.binding.btnSale.setOnClickListener {
-            getItems(position,holder.binding)
-            Log.d("Stefan",position.toString())
-        }
+
 
 //        holder.binding.tvPriceOld.text = movie.price.toString()
 //        homeFragment.addProduct(id,"ru",movie.seller.region_id,movie.seller.district_id)
-
     }
 
     private fun getItems(movie: Int, binding: ItemLayoutTechnicalsBinding) {
@@ -84,5 +96,4 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
 
 }
 class HomeViewHolder(val binding: ItemLayoutTechnicalsBinding) : RecyclerView.ViewHolder(binding.root) {
-
 }

@@ -27,6 +27,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
     fun apiPostList() {
         postService.listPhotos().enqueue(object : Callback<Welcome> {
             override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
+                allPosts.value = response.body()
                 for (i in response.body()!!.data.technicals) {
                     for (i in i.photos) {
                         id.add(i.product_id)

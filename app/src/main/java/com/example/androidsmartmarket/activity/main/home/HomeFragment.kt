@@ -2,7 +2,6 @@ package com.example.androidsmartmarket.activity.main.home
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
@@ -37,15 +35,16 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var arrayList : ArrayList<Datas> = ArrayList()
     var arrayList_FM : ArrayList<Datas> = ArrayList()
     var arrayList_COMP : ArrayList<Datas> = ArrayList()
+    var getHashSet : HashSet<Long> = HashSet()
     var booleans = false
-
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("OOOOOOO","onViewCreated")
         initViews(view)
     }
 
-    @SuppressLint("SuspiciousIndentation")
+    @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
     private fun initViews(view: View) {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         binding.rvFamily.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
@@ -53,31 +52,32 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         adapter = HomeAdapter{ seletedItem: Datas -> listItemClicked(seletedItem,view)}
         familyAdapter = FamilyAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
         noteAdapter = NoteAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
-        Log.d("IIIIIIIIII",arrayList.size.toString())
         binding.rvItem.adapter = adapter
         binding.rvFamily.adapter = familyAdapter
         binding.rvComp.adapter = noteAdapter
         var address : String? = PrefsManager.getInstance(requireContext())!!.getData("address")
         binding.getAddress.text = address
 
-
         homeViewModel.apiPostList()
-
-        homeViewModel.allPostsrter.observe(requireActivity()) {
+        homeViewModel.allPostsrter.observe(this.viewLifecycleOwner) {
             arrayList.add(it!!.data!!)
-            Log.d("IIIIIIIIII", arrayList.size.toString())
             if (arrayList.size == 20) {
                 adapter!!.setItems(arrayList)
             }
+            Log.d("IIIIIIIIII",arrayList.size.toString())
         }
-        homeViewModel.allPostsFamily.observe(requireActivity()) {
+        homeViewModel.allPostsFamily.observe(this.viewLifecycleOwner) {
             arrayList_FM.add(it!!.data!!)
-            familyAdapter!!.setItems(arrayList_FM)
+            if (arrayList_FM.size == 20) {
+                familyAdapter!!.setItems(arrayList_FM)
+            }
         }
 
-        homeViewModel.allPostsComp.observe(requireActivity()) {
+        homeViewModel.allPostsComp.observe(viewLifecycleOwner) {
             arrayList_COMP.add(it!!.data!!)
-            noteAdapter!!.setItems(arrayList_COMP)
+            if (arrayList_COMP.size == 20) {
+                noteAdapter!!.setItems(arrayList_COMP)
+            }
             Log.d("Comp", arrayList_COMP.toString())
         }
         !booleans
@@ -93,6 +93,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             }
         }
     }
+
 
     private fun listItemClicked(seletedItem: Datas, view: View) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)
@@ -110,7 +111,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         }
     }
 
-
 /*    private fun listItemClickedd(seletedItem: Datas, view: View) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)
         intent.putExtra("datas", seletedItem)
@@ -118,34 +118,31 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         startActivity(intent,options.toBundle())
     }*/
 
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onResume() {
+    override fun onPause() {
         clear()
-        super.onResume()
+        super.onPause()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
-        val size: Int = arrayList.size
-        if (size > 0) {
-            for (i in 0 until size) {
-                arrayList.removeAt(0)
-            }
-            adapter!!.notifyItemRangeRemoved(0, size)
-            binding.rvItem.removeAllViewsInLayout()
-        }
-        arrayList.clear()
+//        val size: Int = arrayList.size
+//        if (size > 0) {
+//            for (i in 0 until size) {
+//                arrayList.removeAt(0)
+//            }
+//            adapter!!.notifyItemRangeRemoved(0, size)
+//            binding.rvItem.removeAllViewsInLayout()
+//        }
+        arrayList.clear()  // clear list
         adapter!!.notifyDataSetChanged()
         binding.rvItem.removeAllViewsInLayout()
-        arrayList_FM.clear(); // clear list
+        arrayList_FM.clear() // clear list
         familyAdapter!!.notifyDataSetChanged()
         binding.rvFamily.removeAllViewsInLayout();
-        arrayList_COMP.clear(); // clear list
+        arrayList_COMP.clear() // clear list
         noteAdapter!!.notifyDataSetChanged()
         binding.rvComp.removeAllViewsInLayout()
+        Log.d("SSSSSSSSS", arrayList.size.toString())
     }
 
 }
