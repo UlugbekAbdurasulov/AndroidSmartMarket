@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.androidsmartmarket.R
-import com.example.androidsmartmarket.activity.main.listener.HomeListener
 import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity() : AppCompatActivity() {
-    var homeListener: HomeListener? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     val homeViewModel: HomeViewModel by viewModels()

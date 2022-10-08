@@ -2,7 +2,6 @@ package com.example.androidsmartmarket.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androidsmartmarket.activity.main.home.HomeFragment
 import com.example.androidsmartmarket.model.Technicals
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes
@@ -11,22 +10,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.HashSet
 import javax.inject.Inject
+import kotlin.collections.HashSet
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val postService: PhotosService) : ViewModel(){
     val allPosts = MutableLiveData<Welcome>()
-    val allPostsrter = MutableLiveData<Welcomes>()
+    val allPostsrter = MutableLiveData<Welcomes?>()
     val allPostsFamily = MutableLiveData<Welcomes?>()
     val allPostsComp = MutableLiveData<Welcomes?>()
-    val id : ArrayList<Long> = ArrayList()
-    val id_Family : ArrayList<Long> = ArrayList()
-    val id_Comp : ArrayList<Long> = ArrayList()
+    val id : HashSet<Long> = HashSet()
+    val id_Family : HashSet<Long> = HashSet()
+    val id_Comp : HashSet<Long> = HashSet()
     var getHashSet : HashSet<Long> = HashSet()
     var technicals : Technicals = Technicals()
     fun apiPostList() {
-        var homeFragment: HomeFragment = HomeFragment()
         postService.listPhotos().enqueue(object : Callback<Welcome> {
             override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
                 for (i in response.body()!!.data.technicals) {
@@ -35,11 +33,6 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
                         getHashSet.add(i.product_id)
                         break
                     }
-//                    i.photos.forEach {
-//                        technicals.productId = it.product_id
-//                        technicals.districtId = i.seller.district_id
-//                        technicals.regionId = i.seller.region_id
-//                    }
                 }
 
                 for (i in response.body()!!.data.family) {
@@ -47,9 +40,6 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
                         id_Family.add(i.product_id)
                         break
                     }
-//                    i.photos.forEach {
-//                        id_Family.add(it.product_id)
-//                    }
                 }
 
                 for (i in response.body()!!.data.computers) {
@@ -57,9 +47,6 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
                         id_Comp.add(i.product_id)
                         break
                     }
-//                    i.photos.forEach {
-//
-//                    }
                 }
                 apiGetList(getHashSet)
                 apiGetListFamily(id_Family)
@@ -71,7 +58,6 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
 
         })
     }
-
 
     fun apiGetList(id: HashSet<Long>) {
         for (i in id) {
@@ -87,7 +73,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
         }
     }
 
-    fun apiGetListFamily(id_Family: ArrayList<Long>) {
+    fun apiGetListFamily(id_Family: HashSet<Long>) {
         for (i in id_Family) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {
@@ -101,7 +87,7 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
         }
     }
 
-    fun apiGetListComp(id_Comp: ArrayList<Long>) {
+    fun apiGetListComp(id_Comp: HashSet<Long>) {
         for (i in id_Comp) {
             postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {

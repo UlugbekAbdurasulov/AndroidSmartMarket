@@ -1,9 +1,12 @@
 package com.example.androidsmartmarket.activity.main.category
 
+import android.R.attr.data
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import androidx.core.os.bundleOf
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,23 +17,23 @@ import com.example.androidsmartmarket.activity.viewmodel.CategoryViewModel
 import com.example.androidsmartmarket.adabter.CategoriesAdapter
 import com.example.androidsmartmarket.databinding.FragmentCategoryBinding
 import com.example.androidsmartmarket.model.Category
-import com.example.androidsmartmarket.model.DatumValue
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment(R.layout.fragment_category){
 
     var adapter: CategoriesAdapter? = null
     var arrayList : ArrayList<String> = ArrayList()
-    val categoryViewModel : CategoryViewModel by viewModels()
-    val arrayCategoryList : ArrayList<Category> = ArrayList()
+    private val categoryViewModel : CategoryViewModel by viewModels()
+    private val arrayCategoryList : ArrayList<Category> = ArrayList()
 
     private val binding by viewBinding(FragmentCategoryBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
-
+    @SuppressLint("NotifyDataSetChanged")
     private fun initViews() {
 
         binding.rvCategory.layoutManager =
@@ -38,8 +41,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
         adapter =
             CategoriesAdapter { seletedItem: Long -> listItemClicked(seletedItem) }
         binding.rvCategory.adapter = adapter
-
-        categoryViewModel.allCategories.observe(requireActivity(),{
+        categoryViewModel.allCategories.observe(requireActivity()) {
             it.data.categories.forEach {
                 if (it.parent_id.toInt() == 0) {
                     arrayCategoryList.add(it)
@@ -48,42 +50,51 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
                 }
             }
             adapter!!.setItems(arrayCategoryList.toList())
+
             it.data.categories.forEach {
-               var strParentId = it.parent_id.toString()
+                var strParentId = it.parent_id.toString()
                 if (strParentId.length == 6) {
-                    var strSub = strParentId.substring(0,3)
+                    var strSub = strParentId.substring(0, 3)
                     if (strSub.equals("121"))
                         Log.d("CATEGORIESSParentId", strSub)
                 }
             }
-            Log.d("CATEGORIESS",it.data.toString())
-        })
+            Log.d("CATEGORIESS", it.data.toString())
+        }
         categoryViewModel.apiGetCategoryies()
-
-        categoryViewModel.allCategoriesId.observe(requireActivity(),{
-            it.data.products.forEach {
-                Log.d("OILAKREDIT",it.name)
-            }
-        })
-
-        categoryViewModel.apiGetCategoriesId()
     }
 
     private fun listItemClicked(seletedItem: Long){
-        Log.d("SELECTITEMID",seletedItem.toString())
-        categoryViewModel.allCategories.observe(requireActivity(),{
-            it.data.categories.forEach {
-                var strParentId = it.parent_id.toString()
-                if (seletedItem == strParentId.toLong()) {
-                    Log.d("SELECTITEMID",it.toString())
-                }
-            }
-        })
-        categoryViewModel.apiGetCategoryies()
-       var map : ArrayList<Category> = ArrayList()
-        var bundle : Bundle = Bundle()
-        bundle = bundleOf("amount" to map)
+        var bundle: Bundle = Bundle()
+        bundle.putLong("orderIDArgument" , seletedItem)
         findNavController().navigate(R.id.action_CategoryFragment, bundle)
+        categoryViewModel.apiGetCategoryies()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStart() {
+        clear()
+        super.onStart()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clear() {
+//        val size: Int = arrayCategoryList.size
+//        if (size > 0) {
+//            for (i in 0 until size) {
+//                arrayCategoryList.removeAt(0)
+//            }
+//            adapter!!.notifyItemRangeRemoved(0, size)
+//        }
+        arrayCategoryList.clear(); // clear list
+        adapter!!.notifyDataSetChanged()
+        binding.rvCategory.removeAllViewsInLayout();
+    }
 }

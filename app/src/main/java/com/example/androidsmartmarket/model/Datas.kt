@@ -6,11 +6,10 @@ import java.io.Serializable
 data class Welcomes (
     val error: Any? = null,
     val message: Any? = null,
-    val timestamp: String,
-    val status: Long,
+    val timestamp: String = "",
+    val status: Long? = null,
     val path: Any? = null,
-
-    val data: Datas
+    val data: Datas? = null
 ):Serializable
 
 data class Datas (
