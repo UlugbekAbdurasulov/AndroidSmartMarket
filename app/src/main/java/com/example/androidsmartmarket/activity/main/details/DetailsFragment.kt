@@ -50,12 +50,12 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
        categoryViewModel.apiGetCategoryies()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun listItemClicked(seletedItemE: Long) {
       var bundle: Bundle = Bundle()
-        bundle.putLong("orderIDArgumentHome", seletedItemE)
-        Log.d("orderIDArgumentRv", bundle.toString())
+        bundle.putLong("orders", seletedItemE)
+        Log.d("order", bundle.toString())
         findNavController().navigate(R.id.action_CategoryDetalies, bundle)
-        categoryViewModel.apiGetCategoryies()
         Log.d("VARCHARVAR",seletedItemE.toString())
     }
 

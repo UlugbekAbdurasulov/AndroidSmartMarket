@@ -61,7 +61,7 @@ data class PhotoCat (
     val url: String,
     val id: String,
     val is_main: Boolean,
-    val product_ID: Long
+    val product_id: Long
 ):Serializable
 
 data class SellerCat (

@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerRvBinding
 import com.example.androidsmartmarket.databinding.ItemLayoutCompBinding
+import com.example.androidsmartmarket.model.Datas
 import com.example.androidsmartmarket.model.Producta
 
 
-class CatInnerHomeAdapter(var clickListener: (Producta) -> Unit) : RecyclerView.Adapter<CatInnerHomeHolder>() {
+class CatInnerHomeAdapter(var clickListener: (Datas) -> Unit) : RecyclerView.Adapter<CatInnerHomeHolder>() {
 
-    private var items = mutableListOf<Producta>()
+    private var items = mutableListOf<Datas>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Producta>) {
+    fun setItems(items: List<Datas>) {
         this.items = items.toMutableList()
         notifyDataSetChanged()
     }

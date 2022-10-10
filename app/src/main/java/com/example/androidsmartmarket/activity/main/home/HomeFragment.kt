@@ -55,9 +55,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.rvItem.adapter = adapter
         binding.rvFamily.adapter = familyAdapter
         binding.rvComp.adapter = noteAdapter
+        progressOnn()
         var address : String? = PrefsManager.getInstance(requireContext())!!.getData("address")
         binding.getAddress.text = address
-
         homeViewModel.apiPostList()
         homeViewModel.allPostsrter.observe(this.viewLifecycleOwner) {
             arrayList.add(it!!.data!!)
@@ -79,6 +79,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 noteAdapter!!.setItems(arrayList_COMP)
             }
             Log.d("Comp", arrayList_COMP.toString())
+            if (homeViewModel.allPostsComp.value!=null) {
+                progressOff()
+            }
         }
         !booleans
 
@@ -111,6 +114,13 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         }
     }
 
+    fun progressOff() {
+        binding.progressBar.visibility = View.GONE
+    }
+
+    fun progressOnn() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
 /*    private fun listItemClickedd(seletedItem: Datas, view: View) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)
         intent.putExtra("datas", seletedItem)

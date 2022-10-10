@@ -1,5 +1,6 @@
 package com.example.androidsmartmarket.activity.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androidsmartmarket.model.Technicals
@@ -18,35 +19,29 @@ import kotlin.collections.HashSet
 class CatInnerHomeViewModel @Inject constructor(private val postService: PhotosService) : ViewModel(){
     val allPosts = MutableLiveData<Welcomee>()
 
-    val allPostsFamily = MutableLiveData<Welcomee?>()
+    val allProducts = MutableLiveData<Welcomes?>()
 
     val id : HashSet<Long> = HashSet()
     val id_Family : HashSet<Long> = HashSet()
-    var getHashSet : HashSet<Long> = HashSet()
-
-    fun apiPostList() {
-        postService.listCategoriesInnerHome("ru",26,2601,121,1,16,"popular",
+    var arrayListLong : HashSet<Long> = HashSet()
+    fun apiPostList(ids : Long) {
+        postService.listCategoriesInnerHome("ru",26,2601,ids,1,16,"popular",
             "desc",26,2601).enqueue(object : Callback<Welcomee> {
             override fun onResponse(call: Call<Welcomee>, response: Response<Welcomee>) {
                 allPosts.value = response.body()
-                for (i in response.body()!!.data.products) {
-                    for (i in i.photos) {
-                        id.add(i.product_ID)
-                        getHashSet.add(i.product_ID)
-                        break
+                response.body()!!.data.products.forEach {
+                    var strParentId = it.category_id.toLong()
+                    var str = strParentId.toString()
+                    str = str.substring(0,6)
+                    Log.d("SSSSTOLONG",str)
+                    if (str.toLong() == ids) {
+                        for (i in it.photos) {
+                            arrayListLong.add(i.product_id)
+                            break
+                        }
                     }
                 }
-
-                for (i in response.body()!!.data.products) {
-                    for (i in i.photos) {
-                        id_Family.add(i.product_ID)
-                        break
-                    }
-                }
-
-
-
-                apiGetListFamily(id_Family)
+                apiGetListFamily(arrayListLong)
 
             }
 
@@ -58,15 +53,14 @@ class CatInnerHomeViewModel @Inject constructor(private val postService: PhotosS
 
 
 
-    fun apiGetListFamily(id_Family: HashSet<Long>) {
-        for (i in id_Family) {
-            postService.listCategoriesInnerHome("ru",26,2601,121,1,16,"popular",
-                "desc",26,2601).enqueue(object : Callback<Welcomee> {
-                override fun onFailure(call: Call<Welcomee>, t: Throwable) {
+    fun apiGetListFamily(getLong: HashSet<Long>) {
+        for (i in getLong) {
+            postService.listPhotosProduct(i,"ru",0,0).enqueue(object : Callback<Welcomes> {
+                override fun onFailure(call: Call<Welcomes>, t: Throwable) {
                 }
 
-                override fun onResponse(call: Call<Welcomee>, response: Response<Welcomee>) {
-                    allPostsFamily.value = response.body()
+                override fun onResponse(call: Call<Welcomes>, response: Response<Welcomes>) {
+                    allProducts.value = response.body()
                 }
 
             })
