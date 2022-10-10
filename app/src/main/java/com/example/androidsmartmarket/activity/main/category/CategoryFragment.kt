@@ -22,9 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment(R.layout.fragment_category){
-
     var adapter: CategoriesAdapter? = null
-    var arrayList : ArrayList<String> = ArrayList()
+  /*  var arrayList : ArrayList<String> = ArrayList()*/
     private val categoryViewModel : CategoryViewModel by viewModels()
     private val arrayCategoryList : ArrayList<Category> = ArrayList()
 
@@ -35,7 +34,6 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun initViews() {
-
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter =
@@ -63,10 +61,10 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
         }
         categoryViewModel.apiGetCategoryies()
     }
-
     private fun listItemClicked(seletedItem: Long){
         var bundle: Bundle = Bundle()
         bundle.putLong("orderIDArgument" , seletedItem)
+        Log.d("orderIDArgument", bundle.toString())
         findNavController().navigate(R.id.action_CategoryFragment, bundle)
         categoryViewModel.apiGetCategoryies()
     }

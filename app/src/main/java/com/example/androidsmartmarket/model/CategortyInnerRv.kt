@@ -2,7 +2,7 @@ package com.example.androidsmartmarket.model
 
 import java.io.Serializable
 
-data class Welcomee (
+data class Welcomee(
     val error: Any? = null,
     val message: Any? = null,
     val timestamp: String,
@@ -21,7 +21,7 @@ data class Producta (
     val name: String,
     val regionID: Long,
     val districtID: Long,
-    val categoryID: Long,
+    val category_id: Long,
     val unitID: Long,
     val price: Long,
     val minAmount: Long,
@@ -58,6 +58,7 @@ data class Deliverye (
 ):Serializable
 
 data class PhotoCat (
+    val url: String,
     val id: String,
     val is_main: Boolean,
     val product_ID: Long

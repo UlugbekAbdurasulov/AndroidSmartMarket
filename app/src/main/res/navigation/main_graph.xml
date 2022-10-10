@@ -39,6 +39,21 @@
         android:name="com.example.androidsmartmarket.activity.main.details.DetailsFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_details" >
+        <action android:id="@+id/action_CategoryDetalies"
+            app:destination="@+id/navigation_detailsRv"/>
+
+        <!--   <action
+               android:id="@+id/action_navigation_details_to_navigation_detailsRv"
+               app:destination="@id/navigation_detailsRv" />-->
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_detailsRv"
+        android:name="com.example.androidsmartmarket.activity.main.home.CatInnerHome"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_category_home" >
+
     </fragment>
 
 </navigation>

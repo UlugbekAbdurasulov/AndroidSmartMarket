@@ -7,24 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
-import com.example.androidsmartmarket.model.*
+import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerRvBinding
+import com.example.androidsmartmarket.databinding.ItemLayoutCompBinding
+import com.example.androidsmartmarket.model.Producta
 
-class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter<HomeViewHolder>() {
-    private var items = mutableListOf<Datas>()
+
+class CatInnerHomeAdapter(var clickListener: (Producta) -> Unit) : RecyclerView.Adapter<CatInnerHomeHolder>() {
+
+    private var items = mutableListOf<Producta>()
+
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: ArrayList<Datas>){
+    fun setItems(items: List<Producta>) {
         this.items = items.toMutableList()
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatInnerHomeHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemLayoutTechnicalsBinding.inflate(inflater, parent, false)
-        return HomeViewHolder(binding)
+        val binding = ItemLayoutCategoryInnerRvBinding.inflate(inflater, parent, false)
+        return CatInnerHomeHolder(binding)
     }
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        var id : Long = 0
+
+    override fun onBindViewHolder(holder: CatInnerHomeHolder, position: Int) {
+        var id: Long = 0
         val movie = items[position]
         for (i in movie.photos) {
             if (i.is_main == true) {
@@ -32,40 +37,30 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
                     .with(holder.itemView)
                     .load(i.url)
                     .into(holder.binding.userTitle)
-                break
             }
-            holder.binding.userTitle.setOnClickListener {
-                clickListener(movie)
-            }
+        }
 
-            holder.binding.btnSale.setOnClickListener {
-                if (items.indexOf(movie) == position) {
-                    holder.binding.llCount.visibility = View.VISIBLE
-                    holder.binding.btnSale.visibility = View.GONE
-                }
-                Log.d("Stefan",position.toString())
-                Log.d("Stefan",items.indexOf(movie).toString())
-                Log.d("Stefan",itemCount.toString())
-//            getItems(position,holder.binding)
-//                holder.binding.llCount.visibility = View.VISIBLE
-//                holder.binding.btnSale.visibility = View.GONE
-//                Log.d("Stefan",position.toString())
-            }
+        holder.binding.userTitle.setOnClickListener {
+            clickListener(movie)
         }
         var s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name
-
-
+        /*    holder.binding.btnSale.setOnClickListener {
+            getItems(position,holder.binding)
+            Log.d("Stefan",position.toString())
+        }*/
 //        holder.binding.tvPriceOld.text = movie.price.toString()
 //        homeFragment.addProduct(id,"ru",movie.seller.region_id,movie.seller.district_id)
+
     }
 
-    private fun getItems(movie: Int, binding: ItemLayoutTechnicalsBinding) {
+
+    private fun getItems(movie: Int, binding: ItemLayoutCompBinding) {
         for (i in 0 until items.size) {
             if (i == movie) {
                 var count = 1
-                binding.llCount.visibility = View.VISIBLE
+                binding.llCoount.visibility = View.VISIBLE
                 binding.btnSale.visibility = View.GONE
                 binding.tvCount.text = count.toString()
                 binding.imgIncrement.setOnClickListener {
@@ -79,7 +74,7 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
                     }
                     if (count == 0) {
                         binding.btnSale.visibility = View.VISIBLE
-                        binding.llCount.visibility = View.GONE
+                        binding.llCoount.visibility = View.GONE
                         binding.tvCount.text = count.toString()
                     }
                 }
@@ -87,10 +82,12 @@ class HomeAdapter(private val clickListener:(Datas)->Unit): RecyclerView.Adapter
         }
     }
 
+
     override fun getItemCount(): Int {
         return items.size
     }
+}
+class CatInnerHomeHolder(val binding: ItemLayoutCategoryInnerRvBinding):RecyclerView.ViewHolder(binding.root){
+}
 
-}
-class HomeViewHolder(val binding: ItemLayoutTechnicalsBinding) : RecyclerView.ViewHolder(binding.root) {
-}
+

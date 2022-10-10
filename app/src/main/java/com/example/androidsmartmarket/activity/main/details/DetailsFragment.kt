@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
@@ -49,8 +50,13 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
        categoryViewModel.apiGetCategoryies()
     }
 
-    private fun listItemClicked(seletedItem: Long) {
-        Log.d("VARCHARVAR",seletedItem.toString())
+    private fun listItemClicked(seletedItemE: Long) {
+      var bundle: Bundle = Bundle()
+        bundle.putLong("orderIDArgumentHome" , seletedItemE)
+        Log.d("orderIDArgumentRv", bundle.toString())
+        findNavController().navigate(R.id.action_CategoryDetalies, bundle)
+        categoryViewModel.apiGetCategoryies()
+        Log.d("VARCHARVAR",seletedItemE.toString())
     }
 
     override fun onResume() {

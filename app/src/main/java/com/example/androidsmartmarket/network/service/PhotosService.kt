@@ -69,4 +69,19 @@ public interface PhotosService {
         @Query("region_id") region_id: Long,
         @Query("district_id") district_id: Long,
     ): Call<Welcome>
+
+    @Headers("User-Agent: $ACCESS_KEY")
+    @GET("v1/sync/frontend/catalog/products")
+    fun listCategoriesInnerHome(
+        @Query("lang") lang: String,
+        @Query("shipping_region_id") shipping_region_id: Long,
+        @Query("shipping_district_id") shipping_district_id: Long,
+        @Query("category_id") category_id: Long,
+        @Query("page") page: Long,
+        @Query("page_size") page_size: Long,
+        @Query("sorting") sorting: String,
+        @Query("order") order: String,
+        @Query("region_id") region_id: Long,
+        @Query("district_id") district_id: Long,
+    ): Call<Welcomee>
 }
