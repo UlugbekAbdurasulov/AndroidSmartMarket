@@ -52,7 +52,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
 
     private fun listItemClicked(seletedItemE: Long) {
       var bundle: Bundle = Bundle()
-        bundle.putLong("orderIDArgumentHome" , seletedItemE)
+        bundle.putLong("orderIDArgumentHome", seletedItemE)
         Log.d("orderIDArgumentRv", bundle.toString())
         findNavController().navigate(R.id.action_CategoryDetalies, bundle)
         categoryViewModel.apiGetCategoryies()
