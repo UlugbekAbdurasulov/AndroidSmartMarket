@@ -2,8 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal|center_vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#ffffff"
+        app:elevation="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white">
+            <EditText
+                android:id="@+id/autoCompleteTextview2"
+                android:layout_width="match_parent"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:hint="искат товари"
+                android:focusableInTouchMode="false"
+                android:textSize="18sp"
+                android:imeOptions="actionDone"
+                android:imeActionLabel="Done"
+                android:background="@drawable/searchcolor"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_categoriya"
         android:layout_width="match_parent"

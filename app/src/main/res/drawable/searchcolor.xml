@@ -7,7 +7,7 @@
                 android:left="10dp"
                 android:right="5dp"
                 android:top="10dp"/>
-            <solid android:color="@color/search_input"/>
+            <solid android:color="@color/search_color"/>
         </shape>
     </item>
 </selector>

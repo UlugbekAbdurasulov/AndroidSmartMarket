@@ -106,6 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:allowUndo="true"
+        android:background="@drawable/homekarzinka"
+        app:backgroundTint="@null"
         android:textAllCaps="false"
         android:text="В корзинку"/>
 
