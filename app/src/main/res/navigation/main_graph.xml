@@ -10,6 +10,8 @@
         android:name="com.example.androidsmartmarket.activity.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+        <action android:id="@+id/action_CategoryFragmentHome"
+            app:destination="@+id/navigation_search"/>
     </fragment>
 
     <fragment
@@ -19,6 +21,9 @@
         tools:layout="@layout/fragment_category" >
         <action android:id="@+id/action_CategoryFragment"
             app:destination="@+id/navigation_details"/>
+
+        <action android:id="@+id/action_CategoryFragmentSec"
+            app:destination="@+id/navigation_custom"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_basket"
@@ -54,6 +59,13 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_category_home" >
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_custom"
+        android:name="com.example.androidsmartmarket.activity.main.customfragment.CustomCategory"
+        android:label="fragment_custom"
+        tools:layout="@layout/fragment_category_custom" >
     </fragment>
 
 </navigation>

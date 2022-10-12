@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
@@ -36,7 +37,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var arrayList_FM : ArrayList<Datas> = ArrayList()
     var arrayList_COMP : ArrayList<Datas> = ArrayList()
     var getHashSet : HashSet<Long> = HashSet()
+    var long : Long = 0L
     var booleans = false
+    public var isTester : Boolean = false
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -95,8 +98,19 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 detail.launch(intent)
             }
         }
+        binding.tvFamily.setOnClickListener {
+            isTester = true
+            long = 121
+            openFamilyCategory(long,isTester)
+        }
     }
 
+    private fun openFamilyCategory(long: Long, isTester: Boolean) {
+        var bundle: Bundle = Bundle()
+        bundle.putLong("orderIDFamily" , long)
+        bundle.putBoolean("orderIdBoolean",isTester)
+        findNavController().navigate(R.id.action_CategoryFragmentHome, bundle)
+    }
 
     private fun listItemClicked(seletedItem: Datas, view: View) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)

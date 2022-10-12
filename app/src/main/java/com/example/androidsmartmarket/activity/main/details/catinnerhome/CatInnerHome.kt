@@ -40,6 +40,7 @@ class CatInnerHome: Fragment(R.layout.fragment_category_home) {
         binding.rvCategoriy.adapter = adapter
         progressOnn()
         val idLong = arguments?.getLong("orders")
+        Log.d("KKKLLLLLll",idLong.toString())
         CatInnerHomeViewModel.apiPostList(idLong!!)
         CatInnerHomeViewModel.allProducts.observe(this.viewLifecycleOwner) {
             arrayCategory.add(it!!.data!!)

@@ -2,9 +2,7 @@ package com.example.androidsmartmarket.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androidsmartmarket.model.Welcom
-import com.example.androidsmartmarket.model.Welcome
-import com.example.androidsmartmarket.model.Welcomess
+import com.example.androidsmartmarket.model.*
 import com.example.androidsmartmarket.network.service.PhotosService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -18,9 +16,10 @@ class CategoryViewModel @Inject constructor(private val postService: PhotosServi
 
     val allCategory = MutableLiveData<Welcom>()
     val allCategories = MutableLiveData<Welcomess>()
-    val allCategoriesId = MutableLiveData<Welcome>()
+    val allCategoriesId = MutableLiveData<Welcomee>()
     val id : ArrayList<Long> = ArrayList()
-    val qetHashSet : HashSet<Long> = HashSet()
+    var arrayListLong : HashSet<Long> = HashSet()
+    val allProducts = MutableLiveData<Welcomes?>()
 
     fun apiGetCategory() {
         postService.listCategory("ru").enqueue(object : Callback<Welcom> {
@@ -47,19 +46,21 @@ class CategoryViewModel @Inject constructor(private val postService: PhotosServi
 
         })
     }
-    fun apiGetCategoriesId() {
-        postService.listCategoriesId("ru",26,2601,121,1,16,"popular",
-        "desc",26,2601).enqueue(object : Callback<Welcome> {
-            override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
+
+    fun apiGetCategoriesId(ids : Long) {
+        postService.listCategoriesInnerHome("ru",26,2601,ids,1,16,"popular",
+        "desc",26,2601).enqueue(object : Callback<Welcomee> {
+            override fun onResponse(call: Call<Welcomee>, response: Response<Welcomee>) {
                 allCategoriesId.value = response.body()
             }
 
-            override fun onFailure(call: Call<Welcome>, t: Throwable) {
+            override fun onFailure(call: Call<Welcomee>, t: Throwable) {
 
             }
 
         })
     }
+
 }
 
 
