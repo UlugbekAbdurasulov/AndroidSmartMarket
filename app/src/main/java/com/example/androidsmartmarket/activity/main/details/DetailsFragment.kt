@@ -17,6 +17,7 @@ import com.example.androidsmartmarket.databinding.FragmentDetailsBinding
 import com.example.androidsmartmarket.model.Category
 import com.example.androidsmartmarket.model.Welcomess
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 
 @AndroidEntryPoint
@@ -46,6 +47,10 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
                 }
             }
            adapter!!.setItems(arrayCategory)
+           arrayCategory.clear(); // clear list
+           Log.d("ArrayCategoriess", arrayCategory.toString())
+           adapter!!.notifyDataSetChanged()
+           binding.rvCategoryIn.removeAllViewsInLayout();
         }
        categoryViewModel.apiGetCategoryies()
     }
@@ -77,6 +82,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
 //            adapter!!.notifyItemRangeRemoved(0, size)
 //        }
         arrayCategory.clear(); // clear list
+        Log.d("ArrayCategoriess", arrayCategory.toString())
         adapter!!.notifyDataSetChanged()
         binding.rvCategoryIn.removeAllViewsInLayout();
     }
