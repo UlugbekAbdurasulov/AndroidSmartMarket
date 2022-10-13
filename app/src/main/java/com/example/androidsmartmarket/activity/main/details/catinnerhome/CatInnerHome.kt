@@ -26,13 +26,11 @@ class CatInnerHome: Fragment(R.layout.fragment_category_home) {
     val CatInnerHomeViewModel: CatInnerHomeViewModel by viewModels()
     var booleans = false
     private val binding by viewBinding(FragmentCategoryHomeBinding::bind)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("OOOOOOO","onViewCreated")
         initViews()
     }
-
     @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
     private fun initViews() {
         binding.rvCategoriy.layoutManager = GridLayoutManager(requireContext(),2)
@@ -53,28 +51,22 @@ class CatInnerHome: Fragment(R.layout.fragment_category_home) {
         }
         !booleans
     }
-
-
     private fun listItemClicked(seletedItem: Datas) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
     }
-
     fun progressOff() {
         binding.progressBar.visibility = View.GONE
     }
-
     fun progressOnn() {
         binding.progressBar.visibility = View.VISIBLE
     }
-
     override fun onPause() {
         super.onPause()
         clear()
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
         arrayCategory.clear()  // clear list
@@ -82,12 +74,10 @@ class CatInnerHome: Fragment(R.layout.fragment_category_home) {
         binding.rvCategoriy.removeAllViewsInLayout()
         Log.d("SSSSSSSSS", arrayCategory.size.toString())
     }
-
 /*    private fun listItemClickedd(seletedItem: Datas, view: View) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
     }*/
-
 }

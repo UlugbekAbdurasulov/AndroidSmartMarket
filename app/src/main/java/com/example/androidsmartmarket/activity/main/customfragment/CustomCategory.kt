@@ -31,6 +31,7 @@ class CustomCategory : Fragment(R.layout.fragment_category_custom) {
         binding.rvCategoriy.layoutManager = GridLayoutManager(requireContext(),2)
         adapter = CustomCateAdapter{ seletedItem: Datas -> listItemClicked(seletedItem)}
         binding.rvCategoriy.adapter = adapter
+        progressOnn()
         var getCategory = arguments?.getIntegerArrayList("orderIdArray")
         var arrayList : ArrayList<Int> = ArrayList(getCategory!!)
         categoryViewModel.apiGetListFamily(arrayList)
@@ -38,17 +39,14 @@ class CustomCategory : Fragment(R.layout.fragment_category_custom) {
             arrayCategory.add(it!!.data!!)
             if (arrayCategory.size == 16) {
                 adapter!!.setItems(arrayCategory)
+                progressOff()
             }
         }
         Log.d("GETLONGARRAY",getCategory.toString())
 
     }
-
-
     private fun listItemClicked(seletedItem: Datas) {
-
     }
-
     fun progressOff() {
         binding.progressBar.visibility = View.GONE
     }
