@@ -47,10 +47,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
                 }
             }
            adapter!!.setItems(arrayCategory)
-           arrayCategory.clear(); // clear list
-           Log.d("ArrayCategoriess", arrayCategory.toString())
-           adapter!!.notifyDataSetChanged()
-           binding.rvCategoryIn.removeAllViewsInLayout();
+           Log.d("ArrayCategoriessa", arrayCategory.toString())
         }
        categoryViewModel.apiGetCategoryies()
     }
