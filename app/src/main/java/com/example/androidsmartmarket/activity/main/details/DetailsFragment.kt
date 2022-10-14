@@ -38,7 +38,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
         var id = arguments?.getLong("orderIDArgument")
         Log.d("DDDDDDDDDDD",id.toString())
 
-       categoryViewModel.allCategories.observe(requireActivity()) {
+       categoryViewModel.allCategories.observe(viewLifecycleOwner) {
             it.data.categories.forEach {
                 var strParentId = it.parent_id.toString()
                 if (id == strParentId.toLong()) {
@@ -62,22 +62,12 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
     }
 
     override fun onResume() {
+        clear()
         super.onResume()
     }
 
-    override fun onStart() {
-        clear()
-        super.onStart()
-    }
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
-//        val size: Int = arrayCategoryList.size
-//        if (size > 0) {
-//            for (i in 0 until size) {
-//                arrayCategoryList.removeAt(0)
-//            }
-//            adapter!!.notifyItemRangeRemoved(0, size)
-//        }
         arrayCategory.clear(); // clear list
         Log.d("ArrayCategoriess", arrayCategory.toString())
         adapter!!.notifyDataSetChanged()

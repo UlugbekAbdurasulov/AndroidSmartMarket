@@ -62,8 +62,10 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
             }
             categoryViewModel.apiGetCategoryies()
         }
-        var getBoolean = arguments?.getBoolean("orderIdBoolean")
-        if (getBoolean == true && getCategory!=null) {
+        var getBoolean = requireArguments().getBoolean("orderIdBoolean")
+        Log.d("OpenCategoryBoolean",getBoolean.toString())
+        Log.d("OpenCategoryBoolean",getCategory.toString())
+        if (getBoolean && getCategory!=null) {
             openCategory(getBoolean,getCategory)
         }
     }

@@ -26,7 +26,7 @@ class CatInnerHomeViewModel @Inject constructor(private val postService: PhotosS
     var arrayListLong : HashSet<Long> = HashSet()
     fun apiPostList(ids : Long) {
         postService.listCategoriesInnerHome("ru",26,2601,ids,1,16,"popular",
-            "desc",26,2601).enqueue(object : Callback<Welcomee> {
+            "name",26,2601).enqueue(object : Callback<Welcomee> {
             override fun onResponse(call: Call<Welcomee>, response: Response<Welcomee>) {
                 allPosts.value = response.body()
                 response.body()!!.data.products.forEach {

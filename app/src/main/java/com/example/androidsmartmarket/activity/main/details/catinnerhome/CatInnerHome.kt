@@ -23,8 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CatInnerHome: Fragment(R.layout.fragment_category_home) {
     var arrayCategory : ArrayList<Datas> = ArrayList()
     var adapter : CatInnerHomeAdapter? = null
-    val CatInnerHomeViewModel: CatInnerHomeViewModel by viewModels()
-    var booleans = false
+    val catInnerHomeViewModel: CatInnerHomeViewModel by viewModels()
     private val binding by viewBinding(FragmentCategoryHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,17 +38,14 @@ class CatInnerHome: Fragment(R.layout.fragment_category_home) {
         progressOnn()
         val idLong = arguments?.getLong("orders")
         Log.d("KKKLLLLLll",idLong.toString())
-        CatInnerHomeViewModel.apiPostList(idLong!!)
-        CatInnerHomeViewModel.allProducts.observe(this.viewLifecycleOwner) {
+        catInnerHomeViewModel.apiPostList(idLong!!)
+        catInnerHomeViewModel.allProducts.observe(this.viewLifecycleOwner) {
             arrayCategory.add(it!!.data!!)
-            if (arrayCategory.size == 16) {
-                adapter!!.setItems(arrayCategory)
-                if (CatInnerHomeViewModel.allProducts.value!=null) {
-                    progressOff()
-                }
+            adapter!!.setItems(arrayCategory)
+            if (catInnerHomeViewModel.allProducts.value!=null) {
+                progressOff()
             }
         }
-        !booleans
     }
     private fun listItemClicked(seletedItem: Datas) {
         var intent = Intent(requireContext(),DetailsActivity::class.java)
@@ -63,21 +59,5 @@ class CatInnerHome: Fragment(R.layout.fragment_category_home) {
     fun progressOnn() {
         binding.progressBar.visibility = View.VISIBLE
     }
-    override fun onPause() {
-        super.onPause()
-        clear()
-    }
-    @SuppressLint("NotifyDataSetChanged")
-    fun clear() {
-        arrayCategory.clear()  // clear list
-        adapter!!.notifyDataSetChanged()
-        binding.rvCategoriy.removeAllViewsInLayout()
-        Log.d("SSSSSSSSS", arrayCategory.size.toString())
-    }
-/*    private fun listItemClickedd(seletedItem: Datas, view: View) {
-        var intent = Intent(requireContext(),DetailsActivity::class.java)
-        intent.putExtra("datas", seletedItem)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
-        startActivity(intent,options.toBundle())
-    }*/
+
 }

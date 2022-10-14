@@ -1,5 +1,6 @@
 package com.example.androidsmartmarket.activity.main.customfragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -38,10 +39,8 @@ class CustomCategory : Fragment(R.layout.fragment_category_custom) {
         categoryViewModel.apiGetListFamily(arrayList)
         categoryViewModel.allProducts.observe(viewLifecycleOwner) {
             arrayCategory.add(it!!.data!!)
-            if (arrayCategory.size == 20) {
-                adapter!!.setItems(arrayCategory)
-                progressOff()
-            }
+            adapter!!.setItems(arrayCategory)
+            progressOff()
         }
         Log.d("GETLONGARRAY",getCategory.toString())
     }
@@ -56,5 +55,18 @@ class CustomCategory : Fragment(R.layout.fragment_category_custom) {
     }
     fun progressOnn() {
         binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onResume() {
+        clear()
+        super.onResume()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clear() {
+        arrayCategory.clear(); // clear list
+        Log.d("ArrayCategoriess", arrayCategory.toString())
+        adapter!!.notifyDataSetChanged()
+        binding.rvCategoriy.removeAllViewsInLayout();
     }
 }
