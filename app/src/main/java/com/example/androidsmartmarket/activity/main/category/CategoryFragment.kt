@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -33,12 +34,15 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun initViews() {
+
         binding.rvCategory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter =
-            CategoriesAdapter { seletedItem: Long -> listItemClicked(seletedItem) }
+        adapter = CategoriesAdapter { seletedItem: Long -> listItemClicked(seletedItem) }
         binding.rvCategory.adapter = adapter
         var getCategory = arguments?.getLong("orderIDFamily")
+        var getCategorySec = arguments?.getLong("onBack")
+
+        if (getCategory != null && getCategorySec == null || getCategorySec == 1L) getCategory = null
         Log.d("CATEGORIESSGGGG", getCategory.toString())
         if (getCategory==null) {
             categoryViewModel.allCategories.observe(requireActivity()) {
@@ -62,13 +66,16 @@ class CategoryFragment : Fragment(R.layout.fragment_category){
             }
             categoryViewModel.apiGetCategoryies()
         }
-        var getBoolean = requireArguments().getBoolean("orderIdBoolean")
+        var getBoolean = arguments?.getBoolean("orderIdBoolean")
         Log.d("OpenCategoryBoolean",getBoolean.toString())
         Log.d("OpenCategoryBoolean",getCategory.toString())
-        if (getBoolean && getCategory!=null) {
+        if (getBoolean == true && getCategory!=null) {
             openCategory(getBoolean,getCategory)
         }
     }
+
+
+
     private fun listItemClicked(seletedItem: Long){
         var bundle: Bundle = Bundle()
         bundle.putLong("orderIDArgument" , seletedItem)

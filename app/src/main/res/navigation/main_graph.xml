@@ -68,4 +68,6 @@
         tools:layout="@layout/fragment_category_custom" >
     </fragment>
 
+    <action android:id="@+id/action_Custom"
+        app:destination="@+id/navigation_search"/>
 </navigation>

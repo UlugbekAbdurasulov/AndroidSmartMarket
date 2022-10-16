@@ -57,7 +57,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
       var bundle: Bundle = Bundle()
         bundle.putLong("orders", seletedItemE)
         Log.d("order", bundle.toString())
-        findNavController().navigate(R.id.action_CategoryDetalies, bundle)
+        findNavController().navigate(R.id.action_Custom, bundle)
         Log.d("VARCHARVAR",seletedItemE.toString())
     }
 
