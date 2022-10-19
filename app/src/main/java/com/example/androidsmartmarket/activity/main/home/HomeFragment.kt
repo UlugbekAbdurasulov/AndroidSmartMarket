@@ -46,7 +46,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         Log.d("OOOOOOO","onViewCreated")
         initViews(view)
     }
-
     @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
     private fun initViews(view: View) {
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)

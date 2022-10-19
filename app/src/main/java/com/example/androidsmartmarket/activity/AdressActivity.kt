@@ -20,7 +20,6 @@ import com.example.androidsmartmarket.model.Datum
 import com.example.androidsmartmarket.model.District
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class AdressActivity : BaseActivity() {
     var context : Context? = null
@@ -37,7 +36,6 @@ class AdressActivity : BaseActivity() {
 
         initViews()
     }
-
     @SuppressLint("ResourceAsColor")
     private fun initViews() {
         context = applicationContext
@@ -52,7 +50,6 @@ class AdressActivity : BaseActivity() {
             Log.d("REGION",it.data.toString())
             regionAdapter!!.setItems(it.data)
         })
-
         binding.apply {
             val bottomSheetBehavior = BottomSheetBehavior.from<RelativeLayout>(fragmentDrawer.relativeSheet)
             tvRegion.setOnClickListener {
@@ -61,7 +58,6 @@ class AdressActivity : BaseActivity() {
                 val bottomSheetBehavior = BottomSheetBehavior.from<RelativeLayout>(fragmentDrawerSec.relativeSheet)
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
             }
-
             val bottomSheetBehaviorSec = BottomSheetBehavior.from<RelativeLayout>(fragmentDrawerSec.relativeSheet)
             tvOblast.setOnClickListener {
                 bottomSheetBehaviorSec.setState(BottomSheetBehavior.STATE_EXPANDED)
@@ -75,7 +71,6 @@ class AdressActivity : BaseActivity() {
             }
         }
     }
-
     fun backToFinish(){
         var address : String? = PrefsManager.getInstance(context!!)!!.getData("address")
         var intent = Intent()
@@ -83,13 +78,11 @@ class AdressActivity : BaseActivity() {
         setResult(Activity.RESULT_OK,intent)
         finish()
     }
-
     private fun listItemClickedS(seletedItem: District) {
         binding.tvRgOb.text = seletedItem.name
         val bottomSheetBehavior = BottomSheetBehavior.from<RelativeLayout>(binding.fragmentDrawerSec.relativeSheet)
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
     }
-
     private fun listItemClicked(seletedItem: Datum) {
         Log.d("DATUM",seletedItem.districts.toString())
         binding.tvRgName.text = seletedItem.name
@@ -99,3 +92,8 @@ class AdressActivity : BaseActivity() {
         streetAdapter!!.setItems(seletedItem.districts)
     }
 }
+
+
+
+
+

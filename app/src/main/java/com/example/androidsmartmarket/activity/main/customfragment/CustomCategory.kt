@@ -64,7 +64,6 @@ class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_cus
         clear()
         super.onResume()
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
         arrayCategory.clear(); // clear list
@@ -72,7 +71,6 @@ class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_cus
         adapter!!.notifyDataSetChanged()
         binding.rvCategoriy.removeAllViewsInLayout();
     }
-
     private fun superOnback() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
@@ -80,7 +78,7 @@ class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_cus
                     var long : Long = 1
                     var bundle : Bundle = Bundle()
                     bundle.putLong("onBack",long)
-                    findNavController().navigate(R.id.action_Custom, bundle)
+                   // findNavController().navigate(R.id.action_Custom, bundle)
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)

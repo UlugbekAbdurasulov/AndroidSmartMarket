@@ -46,6 +46,9 @@
         tools:layout="@layout/fragment_details" >
         <action android:id="@+id/action_CategoryDetalies"
             app:destination="@+id/navigation_detailsRv"/>
+        <action
+            android:id="@+id/action_navigation_details_to_navigation_detailsRv"
+            app:destination="@id/navigation_detailsRv" />
 
         <!--   <action
                android:id="@+id/action_navigation_details_to_navigation_detailsRv"
@@ -68,6 +71,6 @@
         tools:layout="@layout/fragment_category_custom" >
     </fragment>
 
-    <action android:id="@+id/action_Custom"
-        app:destination="@+id/navigation_search"/>
+ <!--   <action android:id="@+id/action_Customm"
+        app:destination="@+id/navigation_search"/>-->
 </navigation>

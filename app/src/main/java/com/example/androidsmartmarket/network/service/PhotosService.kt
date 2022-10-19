@@ -23,7 +23,7 @@ public interface PhotosService {
     @GET("v1/sync/frontend/catalog/product/detail")
 
        fun listPhotosProduct(
-        @Query("product_id") product_id: Long,
+        @Query("product_id") product_id: Int,
         @Query("lang") lang: String,
         @Query("region_id") region_id: Long,
         @Query("district_id") district_id: Long

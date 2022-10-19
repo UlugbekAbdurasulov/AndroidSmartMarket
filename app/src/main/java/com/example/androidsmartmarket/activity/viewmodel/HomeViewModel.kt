@@ -2,7 +2,6 @@ package com.example.androidsmartmarket.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androidsmartmarket.activity.main.home.HomeFragment
 import com.example.androidsmartmarket.model.Technicals
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes

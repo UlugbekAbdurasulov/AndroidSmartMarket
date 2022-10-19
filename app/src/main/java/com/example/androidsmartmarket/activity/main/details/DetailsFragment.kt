@@ -57,15 +57,13 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
       var bundle: Bundle = Bundle()
         bundle.putLong("orders", seletedItemE)
         Log.d("order", bundle.toString())
-        findNavController().navigate(R.id.action_Custom, bundle)
+        findNavController().navigate(R.id.action_navigation_details_to_navigation_detailsRv, bundle)
         Log.d("VARCHARVAR",seletedItemE.toString())
     }
-
     override fun onResume() {
         clear()
         super.onResume()
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
         arrayCategory.clear(); // clear list
