@@ -1,16 +1,13 @@
 package com.example.androidsmartmarket.adabter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidsmartmarket.databinding.ItemLayoutCategoryInnerRvBinding
-import com.example.androidsmartmarket.databinding.ItemLayoutCompBinding
 import com.example.androidsmartmarket.model.Datas
-import com.example.androidsmartmarket.model.Producta
 
 
 class CatInnerHomeAdapter(var clickListener: (Datas) -> Unit) : RecyclerView.Adapter<CatInnerHomeHolder>() {
@@ -44,7 +41,7 @@ class CatInnerHomeAdapter(var clickListener: (Datas) -> Unit) : RecyclerView.Ada
         holder.binding.userTitle.setOnClickListener {
             clickListener(movie)
         }
-        var s = (String.format("%,d", movie.price)).replace(',', ' ')
+        val s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name
         /*    holder.binding.btnSale.setOnClickListener {
@@ -53,15 +50,17 @@ class CatInnerHomeAdapter(var clickListener: (Datas) -> Unit) : RecyclerView.Ada
         }*/
 //        holder.binding.tvPriceOld.text = movie.price.toString()
 //        homeFragment.addProduct(id,"ru",movie.seller.region_id,movie.seller.district_id)
-
+        holder.binding.btnSale.setOnClickListener {
+            getItems(position,holder.binding)
+        }
     }
 
 
-    private fun getItems(movie: Int, binding: ItemLayoutCompBinding) {
+    private fun getItems(movie: Int, binding: ItemLayoutCategoryInnerRvBinding) {
         for (i in 0 until items.size) {
             if (i == movie) {
                 var count = 1
-                binding.llCoount.visibility = View.VISIBLE
+                binding.llCountt.visibility = View.VISIBLE
                 binding.btnSale.visibility = View.GONE
                 binding.tvCount.text = count.toString()
                 binding.imgIncrement.setOnClickListener {
@@ -75,7 +74,7 @@ class CatInnerHomeAdapter(var clickListener: (Datas) -> Unit) : RecyclerView.Ada
                     }
                     if (count == 0) {
                         binding.btnSale.visibility = View.VISIBLE
-                        binding.llCoount.visibility = View.GONE
+                        binding.llCountt.visibility = View.GONE
                         binding.tvCount.text = count.toString()
                     }
                 }

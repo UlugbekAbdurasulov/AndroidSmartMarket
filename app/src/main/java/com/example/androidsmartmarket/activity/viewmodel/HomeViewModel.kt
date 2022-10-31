@@ -2,11 +2,17 @@ package com.example.androidsmartmarket.activity.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.androidsmartmarket.database.Event
+import com.example.androidsmartmarket.database.MedicineRepository
+import com.example.androidsmartmarket.database.entity.Product
 import com.example.androidsmartmarket.model.Technicals
 import com.example.androidsmartmarket.model.Welcome
 import com.example.androidsmartmarket.model.Welcomes
 import com.example.androidsmartmarket.network.service.PhotosService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +20,7 @@ import javax.inject.Inject
 import kotlin.collections.HashSet
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val postService: PhotosService) : ViewModel(){
+class HomeViewModel @Inject constructor(private val postService: PhotosService,private val repository: MedicineRepository) : ViewModel(){
     val allPosts = MutableLiveData<Welcome>()
     val allPostsrter = MutableLiveData<Welcomes?>()
     val allPostsFamily = MutableLiveData<Welcomes?>()
@@ -24,6 +30,8 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
     val id_Comp : HashSet<Long> = HashSet()
     var getHashSet : HashSet<Long> = HashSet()
     var technicals : Technicals = Technicals()
+    val subscribers_base = repository.subscribers
+    private val statusMessage = MutableLiveData<Event<String>>()
     fun apiPostList() {
         postService.listPhotos().enqueue(object : Callback<Welcome> {
             override fun onResponse(call: Call<Welcome>, response: Response<Welcome>) {
@@ -101,4 +109,28 @@ class HomeViewModel @Inject constructor(private val postService: PhotosService) 
             })
         }
     }
+
+    fun insertBase(subscriber: Product): Job = viewModelScope.launch {
+        val newRowId = repository.insert(subscriber)
+        if (newRowId > -1) {
+            statusMessage.value = Event("successfully")
+        } else {
+            statusMessage.value = Event("Error Occurred")
+        }
+    }
+
+    fun delete(subscriber: Product): Job = viewModelScope.launch {
+        val noOfRowsDeleted = repository.delete(subscriber)
+    }
+
+    fun clearAll(): Job = viewModelScope.launch {
+        val noOfRowsDeleted = repository.deleteAll()
+        if (noOfRowsDeleted > 0) {
+            statusMessage.value = Event("$noOfRowsDeleted O`chirish omadli yakunlandi")
+        } else {
+            statusMessage.value = Event("Error Occurred")
+        }
+
+    }
+
 }

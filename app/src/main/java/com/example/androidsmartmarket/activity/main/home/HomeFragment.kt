@@ -10,7 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
@@ -21,6 +23,7 @@ import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
 import com.example.androidsmartmarket.adabter.FamilyAdapter
 import com.example.androidsmartmarket.adabter.HomeAdapter
 import com.example.androidsmartmarket.adabter.NoteAdapter
+import com.example.androidsmartmarket.database.entity.Product
 import com.example.androidsmartmarket.databinding.FragmentHomeBinding
 import com.example.androidsmartmarket.manager.PrefsManager
 import com.example.androidsmartmarket.model.*
@@ -39,61 +42,74 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var getHashSet : HashSet<Long> = HashSet()
     var long : Long = 0L
     var booleans = false
-    public var isTester : Boolean = false
+    private var isTester : Boolean = false
     private val binding by viewBinding(FragmentHomeBinding::bind)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("OOOOOOO","onViewCreated")
-        initViews(view)
+        initViews()
     }
     @SuppressLint("SuspiciousIndentation", "NotifyDataSetChanged")
-    private fun initViews(view: View) {
-        binding.rvItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        binding.rvFamily.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        binding.rvComp.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        adapter = HomeAdapter{ seletedItem: Datas -> listItemClicked(seletedItem,view)}
-        familyAdapter = FamilyAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
-        noteAdapter = NoteAdapter { seletedItem: Datas -> listItemClicked(seletedItem, view) }
-        binding.rvItem.adapter = adapter
-        binding.rvFamily.adapter = familyAdapter
-        binding.rvComp.adapter = noteAdapter
+    private fun initViews() {
+        homeViewModel.clearAll()
+        homeViewModel.subscribers_base.observe(requireActivity(), Observer {
+            Log.d("MyTag",it.toString())
+        })
+        binding.rvFamily.setLayoutManager(LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false))
+        binding.apply {
+            rvItem.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL,false)
+            rvComp.layoutManager = GridLayoutManager(requireActivity(),2,GridLayoutManager.HORIZONTAL,false)
+//            adapter = HomeAdapter{ seletedItem: Datas -> listItemClicked(seletedItem)}
+            familyAdapter = FamilyAdapter({ seletedItem: Datas -> listItemClicked(seletedItem)},{seletedItemSave: Datas,int : Int -> listItemClickedSave(seletedItemSave,int)})
+            noteAdapter = NoteAdapter { seletedItem: Datas -> listItemClicked(seletedItem) }
+//            rvItem.adapter = adapter
+            rvFamily.adapter = familyAdapter
+            rvComp.adapter = noteAdapter
+        }
         progressOnn()
-        var address : String? = PrefsManager.getInstance(requireContext())!!.getData("address")
+        val address : String? = PrefsManager.getInstance(requireContext())!!.getData("address")
         binding.getAddress.text = address
         homeViewModel.apiPostList()
         homeViewModel.allPostsrter.observe(this.viewLifecycleOwner) {
             arrayList.add(it!!.data!!)
             if (arrayList.size == 20) {
-                adapter!!.setItems(arrayList)
+                adapter = HomeAdapter(this,arrayList)
+                binding.rvItem.adapter = adapter
+            }
+            if (homeViewModel.allPostsrter.value!=null) {
+                progressOff()
             }
             Log.d("IIIIIIIIII",arrayList.size.toString())
         }
-        homeViewModel.allPostsFamily.observe(this.viewLifecycleOwner) {
+        homeViewModel.allPostsFamily.observe(viewLifecycleOwner) {
             arrayList_FM.add(it!!.data!!)
             if (arrayList_FM.size == 20) {
                 familyAdapter!!.setItems(arrayList_FM)
             }
-        }
-
-        homeViewModel.allPostsComp.observe(viewLifecycleOwner) {
-            arrayList_COMP.add(it!!.data!!)
-            if (arrayList_COMP.size == 20) {
-                noteAdapter!!.setItems(arrayList_COMP)
-            }
-            Log.d("Comp", arrayList_COMP.toString())
-            if (homeViewModel.allPostsComp.value!=null) {
+            if (homeViewModel.allPostsFamily.value!=null) {
                 progressOff()
             }
         }
+
+//        homeViewModel.allPostsComp.observe(viewLifecycleOwner) {
+//            arrayList_COMP.add(it!!.data!!)
+//            if (arrayList_COMP.size == 20) {
+//                noteAdapter!!.setItems(arrayList_COMP)
+//            }
+//            Log.d("Comp", arrayList_COMP.toString())
+//            if (homeViewModel.allPostsComp.value!=null) {
+//                progressOff()
+//            }
+//        }
         !booleans
 
         binding.apply {
             autoCompleteTextview2.setOnClickListener {
-                var intent : Intent = Intent(requireContext(), SearchActivity::class.java)
+                val intent = Intent(requireContext(), SearchActivity::class.java)
                 startActivity(intent)
             }
             setAddress.setOnClickListener {
-                var intent : Intent = Intent(requireContext(),AdressActivity::class.java)
+                val intent = Intent(requireContext(),AdressActivity::class.java)
                 detail.launch(intent)
             }
         }
@@ -104,15 +120,20 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         }
     }
 
+    private fun listItemClickedSave(seletedItemSave: Datas, int: Int) {
+        val product = Product(null,seletedItemSave,int)
+        homeViewModel.insertBase(product)
+    }
+
     private fun openFamilyCategory(long: Long, isTester: Boolean) {
-        var bundle: Bundle = Bundle()
+        val bundle = Bundle()
         bundle.putLong("orderIDFamily" , long)
         bundle.putBoolean("orderIdBoolean",isTester)
         findNavController().navigate(R.id.action_CategoryFragmentHome, bundle)
     }
 
-    private fun listItemClicked(seletedItem: Datas, view: View) {
-        var intent = Intent(requireContext(),DetailsActivity::class.java)
+     fun listItemClicked(seletedItem: Datas) {
+        val intent = Intent(requireContext(),DetailsActivity::class.java)
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
@@ -121,8 +142,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     var detail = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){ result->
         if (result.resultCode == Activity.RESULT_OK){
-            var user = result.data
-            var user1  = user!!.getStringExtra("result")
+            val user = result.data
+            val user1  = user!!.getStringExtra("result")
             binding.getAddress.text = user1
         }
     }
@@ -146,7 +167,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         super.onPause()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
     fun clear() {
 //        val size: Int = arrayList.size
 //        if (size > 0) {
@@ -157,12 +178,15 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 //            binding.rvItem.removeAllViewsInLayout()
 //        }
         arrayList.clear()  // clear list
+        if (adapter != null)
         adapter!!.notifyDataSetChanged()
         binding.rvItem.removeAllViewsInLayout()
         arrayList_FM.clear() // clear list
+        if (familyAdapter != null)
         familyAdapter!!.notifyDataSetChanged()
         binding.rvFamily.removeAllViewsInLayout();
         arrayList_COMP.clear() // clear list
+        if (noteAdapter != null)
         noteAdapter!!.notifyDataSetChanged()
         binding.rvComp.removeAllViewsInLayout()
         Log.d("SSSSSSSSS", arrayList.size.toString())

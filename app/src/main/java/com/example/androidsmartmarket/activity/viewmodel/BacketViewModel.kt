@@ -40,7 +40,7 @@ class BacketViewModel @Inject constructor(private val postService: PhotosService
     }
     fun apiGetListFamily(getLong: ArrayList<Int>) {
         for (e in getLong) {
-            postService.listPhotosProduct(e,"ru",0,0).enqueue(object : Callback<Welcomes> {
+            postService.listPhotosProduct(e.toLong(),"ru",0,0).enqueue(object : Callback<Welcomes> {
                 override fun onFailure(call: Call<Welcomes>, t: Throwable) {
                 }
 

@@ -21,7 +21,7 @@ import com.example.androidsmartmarket.model.Datas
 
 class BasketFragment: Fragment(R.layout.fragment_basket) {
     var adapter: BasketAdabter? = null
-    private val backetViewModel : BacketViewModel by viewModels()
+//    private val backetViewModel : BacketViewModel by viewModels()
     private val binding by viewBinding(FragmentBasketBinding::bind)
 
     var arrayCategory : ArrayList<Datas> = ArrayList()
@@ -36,15 +36,15 @@ class BasketFragment: Fragment(R.layout.fragment_basket) {
         adapter = BasketAdabter{ seletedItem: Datas -> listItemClicked(seletedItem)}
         binding.rvBacket.adapter = adapter
 
-        var getCategory = arguments?.getIntegerArrayList("orderIdArray")
-        var arrayList : ArrayList<Int> = ArrayList(getCategory!!)
-        backetViewModel.apiGetListFamily(arrayList)
-        backetViewModel.allProducts.observe(viewLifecycleOwner) {
-            arrayCategory.add(it!!.data!!)
-            adapter!!.setItems(arrayCategory)
-
-        }
-        Log.d("GETLONGARRAY",getCategory.toString())
+//        val getCategory = arguments?.getIntegerArrayList("orderIdArray")
+        val arrayList : ArrayList<Int> = ArrayList()
+//        backetViewModel.apiGetListFamily(arrayList)
+//        backetViewModel.allProducts.observe(viewLifecycleOwner) {
+//            arrayCategory.add(it!!.data!!)
+//            adapter!!.setItems(arrayCategory)
+//
+//        }
+//        Log.d("GETLONGARRAY",getCategory.toString())
     }
     private fun listItemClicked(seletedItem: Datas) {
         var intent = Intent(requireContext(), DetailsActivity::class.java)

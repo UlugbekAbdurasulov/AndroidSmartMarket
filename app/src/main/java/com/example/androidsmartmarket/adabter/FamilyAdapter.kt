@@ -5,21 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.androidsmartmarket.R
-import com.example.androidsmartmarket.activity.main.home.HomeFragment
-import com.example.androidsmartmarket.activity.viewmodel.HomeViewModel
-import com.example.androidsmartmarket.databinding.ItemLayoutCompBinding
+import com.example.androidsmartmarket.database.entity.Product
 import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalBinding
-import com.example.androidsmartmarket.databinding.ItemLayoutTechnicalsBinding
-import com.example.androidsmartmarket.model.*
+import com.example.androidsmartmarket.model.Datas
 
-class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<TechnicalsViewHolder>() {
+class FamilyAdapter(var clickListener: (Datas) -> Unit,var clickListenerSave: (Datas,Int) -> Unit): RecyclerView.Adapter<TechnicalsViewHolder>() {
 
-
+    private lateinit var baseSaveInfo: Product
+    private var counter = 0
     private var items = mutableListOf<Datas>()
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<Datas>){
@@ -46,39 +41,40 @@ class FamilyAdapter(var clickListener: (Datas) -> Unit): RecyclerView.Adapter<Te
         holder.binding.userTitle.setOnClickListener {
             clickListener(movie)
         }
-        var s = (String.format("%,d", movie.price)).replace(',', ' ')
+        val s = (String.format("%,d", movie.price)).replace(',', ' ')
         holder.binding.tvPrice.text = s
         holder.binding.tvName.text = movie.name
         holder.binding.btnSale.setOnClickListener {
-            getItems(position,holder.binding)
+            getItems(position,holder.binding,movie)
             Log.d("Stefan",position.toString())
         }
 //        holder.binding.tvPriceOld.text = movie.price.toString()
 //        homeFragment.addProduct(id,"ru",movie.seller.region_id,movie.seller.district_id)
 
     }
-    private fun getItems(movie: Int, binding: ItemLayoutTechnicalBinding) {
-        for (i in 0 until items.size) {
-            if (i == movie) {
-                var count = 1
-                binding.llCountt.visibility = View.VISIBLE
-                binding.btnSale.visibility = View.GONE
+    private fun getItems(movie: Int, binding: ItemLayoutTechnicalBinding, movie1: Datas) {
+        Log.d("ITEMPOSITIONADAPTER ",movie.toString())
+        var count = 1
+        binding.llCountt.visibility = View.VISIBLE
+        binding.btnSale.visibility = View.GONE
+        binding.tvCount.text = count.toString()
+        counter++
+        clickListenerSave(movie1,counter)
+        binding.imgIncrement.setOnClickListener {
+            count++
+            counter++
+            binding.tvCount.text = count.toString()
+            clickListenerSave(movie1,counter)
+        }
+        binding.imgDecrement.setOnClickListener {
+            if (count != 0) {
+                --count
                 binding.tvCount.text = count.toString()
-                binding.imgIncrement.setOnClickListener {
-                    count++
-                    binding.tvCount.text = count.toString()
-                }
-                binding.imgDecrement.setOnClickListener {
-                    if (count != 0) {
-                        --count
-                        binding.tvCount.text = count.toString()
-                    }
-                    if (count == 0) {
-                        binding.btnSale.visibility = View.VISIBLE
-                        binding.llCountt.visibility = View.GONE
-                        binding.tvCount.text = count.toString()
-                    }
-                }
+            }
+            if (count == 0) {
+                binding.btnSale.visibility = View.VISIBLE
+                binding.llCountt.visibility = View.GONE
+                binding.tvCount.text = count.toString()
             }
         }
     }

@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
@@ -21,7 +20,7 @@ import com.example.androidsmartmarket.model.Datas
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_custom) {
+class CustomCategory : Fragment(R.layout.fragment_category_custom) {
     private val binding by viewBinding(FragmentCategoryCustomBinding::bind)
     private val categoryViewModel : CustomViewModel by viewModels()
     var adapter : CustomCateAdapter? = null
@@ -37,8 +36,8 @@ class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_cus
         adapter = CustomCateAdapter{ seletedItem: Datas -> listItemClicked(seletedItem)}
         binding.rvCategoriy.adapter = adapter
         progressOnn()
-        var getCategory = arguments?.getIntegerArrayList("orderIdArray")
-        var arrayList : ArrayList<Int> = ArrayList(getCategory!!)
+        val getCategory = arguments?.getIntegerArrayList("orderIdArray")
+        val arrayList : ArrayList<Int> = ArrayList(getCategory!!)
         categoryViewModel.apiGetListFamily(arrayList)
         categoryViewModel.allProducts.observe(viewLifecycleOwner) {
             arrayCategory.add(it!!.data!!)
@@ -48,7 +47,7 @@ class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_cus
         Log.d("GETLONGARRAY",getCategory.toString())
     }
     private fun listItemClicked(seletedItem: Datas) {
-        var intent = Intent(requireContext(), DetailsActivity::class.java)
+        val intent = Intent(requireContext(), DetailsActivity::class.java)
         intent.putExtra("datas", seletedItem)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity())
         startActivity(intent,options.toBundle())
@@ -75,8 +74,8 @@ class CustomCategory(enabled: Boolean) : Fragment(R.layout.fragment_category_cus
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
-                    var long : Long = 1
-                    var bundle : Bundle = Bundle()
+                    val long : Long = 1
+                    val bundle = Bundle()
                     bundle.putLong("onBack",long)
                    // findNavController().navigate(R.id.action_Custom, bundle)
                 }

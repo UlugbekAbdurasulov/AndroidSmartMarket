@@ -103,12 +103,13 @@
     <Button
         android:id="@+id/btn_sale"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/homekarzinka"
         app:backgroundTint="@null"
         android:textAllCaps="false"
-        android:text="В корзинку"/>
+        android:text="В корзинку"
+        android:orientation="vertical"/>
     <LinearLayout
         android:id="@+id/ll_countt"
         android:layout_width="match_parent"

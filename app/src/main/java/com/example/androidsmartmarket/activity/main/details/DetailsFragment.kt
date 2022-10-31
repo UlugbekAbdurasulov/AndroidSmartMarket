@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androidsmartmarket.R
 import com.example.androidsmartmarket.activity.viewmodel.CategoryInnerViewModel
-import com.example.androidsmartmarket.activity.viewmodel.CategoryViewModel
 import com.example.androidsmartmarket.adabter.CategoriesAdapterInner
 import com.example.androidsmartmarket.databinding.FragmentDetailsBinding
 import com.example.androidsmartmarket.model.Category
-import com.example.androidsmartmarket.model.Welcomess
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
 
 
 @AndroidEntryPoint
@@ -35,12 +32,12 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
         binding.rvCategoryIn.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         adapter = CategoriesAdapterInner{seletedItem: Long -> listItemClicked(seletedItem)}
         binding.rvCategoryIn.adapter = adapter
-        var id = arguments?.getLong("orderIDArgument")
+        val id = arguments?.getLong("orderIDArgument")
         Log.d("DDDDDDDDDDD",id.toString())
 
        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
             it.data.categories.forEach {
-                var strParentId = it.parent_id.toString()
+                val strParentId = it.parent_id.toString()
                 if (id == strParentId.toLong()) {
                     arrayCategory.add(it)
                     Log.d("SELECTITEMID", it.toString())
@@ -54,7 +51,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
 
     @SuppressLint("SuspiciousIndentation")
     private fun listItemClicked(seletedItemE: Long) {
-      var bundle: Bundle = Bundle()
+      val bundle = Bundle()
         bundle.putLong("orders", seletedItemE)
         Log.d("order", bundle.toString())
         findNavController().navigate(R.id.action_navigation_details_to_navigation_detailsRv, bundle)
